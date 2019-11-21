@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="越学越执着" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="结构形式    旋翼对称分布在机体的前后、左右四个方向，四个旋翼处于同一高度平面，且四个旋翼的结构和半径都相同，四个电机对称的安装在飞行器的支架端，支架中间空间安放飞行控制计算机和外部设备。结构形式如图 1.1所示。">
+<meta name="keywords" content="Arduino">
+<meta property="og:type" content="article">
+<meta property="og:title" content="四轴飞行器结构和原理">
+<meta property="og:url" content="http:&#x2F;&#x2F;jevonsc1.github.io&#x2F;2016&#x2F;05&#x2F;18&#x2F;%E5%9B%9B%E8%BD%B4%E9%A3%9E%E8%A1%8C%E5%99%A8%E7%BB%93%E6%9E%84%E5%92%8C%E5%8E%9F%E7%90%86&#x2F;index.html">
+<meta property="og:site_name" content="越学越执着">
+<meta property="og:description" content="结构形式    旋翼对称分布在机体的前后、左右四个方向，四个旋翼处于同一高度平面，且四个旋翼的结构和半径都相同，四个电机对称的安装在飞行器的支架端，支架中间空间安放飞行控制计算机和外部设备。结构形式如图 1.1所示。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http:&#x2F;&#x2F;img.blog.csdn.net&#x2F;20140420213642031">
+<meta property="og:image" content="http:&#x2F;&#x2F;img.blog.csdn.net&#x2F;20140420213822187">
+<meta property="og:image" content="http:&#x2F;&#x2F;img.blog.csdn.net&#x2F;20140420213906093">
+<meta property="og:updated_time" content="2019-11-07T13:16:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;img.blog.csdn.net&#x2F;20140420213642031">
+
+<link rel="canonical" href="http://jevonsc1.github.io/2016/05/18/%E5%9B%9B%E8%BD%B4%E9%A3%9E%E8%A1%8C%E5%99%A8%E7%BB%93%E6%9E%84%E5%92%8C%E5%8E%9F%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>四轴飞行器结构和原理 | 越学越执着</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">越学越执着</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">//Fly The Best</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://jevonsc1.github.io/2016/05/18/%E5%9B%9B%E8%BD%B4%E9%A3%9E%E8%A1%8C%E5%99%A8%E7%BB%93%E6%9E%84%E5%92%8C%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jevons">
+      <meta itemprop="description" content="Welcome">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="越学越执着">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          四轴飞行器结构和原理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-05-18 09:20:10" itemprop="dateCreated datePublished" datetime="2016-05-18T09:20:10+08:00">2016-05-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-07 21:16:16" itemprop="dateModified" datetime="2019-11-07T21:16:16+08:00">2019-11-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="结构形式"><a href="#结构形式" class="headerlink" title="结构形式 "></a>结构形式 </h2><p>   旋翼对称分布在机体的前后、左右四个方向，四个旋翼处于同一高度平面，且四个旋翼的结构和半径都相同，四个电机对称的安装在飞行器的支架端，支架中间空间安放飞行控制计算机和外部设备。结构形式如图 1.1所示。 </p>
+<p><img src="http://img.blog.csdn.net/20140420213642031" alt=""></p>
+<a id="more"></a>
+<h2 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理 "></a>工作原理 </h2><p>   四旋翼飞行器通过调节四个电机转速来改变旋翼转速，实现升力的变化，从而控制飞行器的姿态和位置。四旋翼飞行器是一种六自由度的垂直升降机，但只有四个输入力，同时却有六个状态输出，所以它又是一种欠驱动系统。<br><img src="http://img.blog.csdn.net/20140420213822187" alt=""><br><img src="http://img.blog.csdn.net/20140420213906093" alt=""></p>
+<p>   四旋翼飞行器的电机 1和电机 3逆时针旋转的同时，电机 2和电机 4顺时针旋转，因此当飞行器平衡飞行时，陀螺效应和空气动力扭矩效应均被抵消。<br>      在上图中，电机 1和电机 3作逆时针旋转，电机 2和电机 4作顺时针旋转，规定沿 x轴正方向运动称为向前运动，箭头在旋翼的运动平面上方表示此电机转速提高，在下方表示此电机转速下降。</p>
+<blockquote>
+<ul>
+<li>垂直运动：同时增加四个电机的输出功率，旋翼转速增加使得总的拉力增大，当总拉力足以克服整机的重量时，四旋翼飞行器便离地垂直上升；反之，同时减小四个电机的输出功率，四旋翼飞行器则垂直下降，直至平衡落地，实现了沿 z轴的垂直运动。当外界扰动量为零时，在旋翼产生的升力等于飞行器的自重时，飞行器便保持悬停状态。</li>
+</ul>
+</blockquote>
+<br/>
+
+<blockquote>
+<ul>
+<li>俯仰运动：在图（b）中，电机 1的转速上升，电机 3 的转速下降（改变量大小应相等），电机 2、电机 4 的转速保持不变。由于旋翼1 的升力上升，旋翼 3 的升力下降，产生的不平衡力矩使机身绕 y 轴旋转，同理，当电机 1 的转速下降，电机 3的转速上升，机身便绕y轴向另一个方向旋转，实现飞行器的俯仰运动。 </li>
+</ul>
+</blockquote>
+<br/>
+
+<blockquote>
+<ul>
+<li>滚转运动：与图 b 的原理相同，在图 c 中，改变电机 2和电机 4的转速，保持电机1和电机 3的转速不变，则可使机身绕 x 轴旋转（正向和反向），实现飞行器的滚转运动。 </li>
+</ul>
+</blockquote>
+<br/>
+
+<blockquote>
+<ul>
+<li>偏航运动：旋翼转动过程中由于空气阻力作用会形成与转动方向相反的反扭矩，为了克服反扭矩影响，可使四个旋翼中的两个正转，两个反转，且对角线上的各个旋翼转动方向相同。反扭矩的大小与旋翼转速有关，当四个电机转速相同时，四个旋翼产生的反扭矩相互平衡，四旋翼飞行器不发生转动；当四个电机转速不完全相同时，不平衡的反扭矩会引起四旋翼飞行器转动。在图 d中，当电机 1和电机 3 的转速上升，电机 2 和电机 4 的转速下降时，旋翼 1和旋翼3对机身的反扭矩大于旋翼2和旋翼4对机身的反扭矩，机身便在富余反扭矩的作用下绕 z轴转动，实现飞行器的偏航运动，转向与电机 1、电机3的转向相反。 </li>
+</ul>
+</blockquote>
+<br/>
+
+<blockquote>
+<ul>
+<li>前后运动：要想实现飞行器在水平面内前后、左右的运动，必须在水平面内对飞行器施加一定的力。在图 e中，增加电机 3转速，使拉力增大，相应减小电机 1转速，使拉力减小，同时保持其它两个电机转速不变，反扭矩仍然要保持平衡。按图 b的理论，飞行器首先发生一定程度的倾斜，从而使旋翼拉力产生水平分量，因此可以实现飞行器的前飞运动。向后飞行与向前飞行正好相反。（在图 b 图 c中，飞行器在产生俯仰、翻滚运动的同时也会产生沿 x、y轴的水平运动。） </li>
+</ul>
+</blockquote>
+<br/>
+
+<blockquote>
+<ul>
+<li>倾向运动：在图 f 中，由于结构对称，所以倾向飞行的工作原理与前后运动完全一样</li>
+</ul>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Arduino/" rel="tag"># Arduino</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2016/05/18/%E5%85%83%E4%BB%B6%E5%AD%97%E5%85%B8/" rel="next" title="元件字典">
+                  <i class="fa fa-chevron-left"></i> 元件字典
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2016/05/18/%E4%BF%AE%E6%94%B9UIWebView%E7%9A%84User-Agent/" rel="prev" title="修改UIWebView的User-Agent">
+                  修改UIWebView的User-Agent <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#结构形式"><span class="nav-number">1.</span> <span class="nav-text">结构形式 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工作原理"><span class="nav-number">2.</span> <span class="nav-text">工作原理 </span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Jevons</p>
+  <div class="site-description" itemprop="description">Welcome</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jevons</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

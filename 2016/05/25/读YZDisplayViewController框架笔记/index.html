@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="越学越执着" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="前言现在有太多应用有类似腾讯视频多页滑动的需求，类似功能的代码我看了不下10份，自己也亲自码了几个版本出来，直到我看完啊铮的“YZDisplayViewController”之后，才真正感到满意。">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="读YZDisplayViewController框架笔记">
+<meta property="og:url" content="http:&#x2F;&#x2F;jevonsc1.github.io&#x2F;2016&#x2F;05&#x2F;25&#x2F;%E8%AF%BBYZDisplayViewController%E6%A1%86%E6%9E%B6%E7%AC%94%E8%AE%B0&#x2F;index.html">
+<meta property="og:site_name" content="越学越执着">
+<meta property="og:description" content="前言现在有太多应用有类似腾讯视频多页滑动的需求，类似功能的代码我看了不下10份，自己也亲自码了几个版本出来，直到我看完啊铮的“YZDisplayViewController”之后，才真正感到满意。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;304825-4e3ab3a122dc3b25.gif?imageMogr2&#x2F;auto-orient&#x2F;strip">
+<meta property="og:updated_time" content="2019-11-07T13:16:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;304825-4e3ab3a122dc3b25.gif?imageMogr2&#x2F;auto-orient&#x2F;strip">
+
+<link rel="canonical" href="http://jevonsc1.github.io/2016/05/25/%E8%AF%BBYZDisplayViewController%E6%A1%86%E6%9E%B6%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>读YZDisplayViewController框架笔记 | 越学越执着</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">越学越执着</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">//Fly The Best</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://jevonsc1.github.io/2016/05/25/%E8%AF%BBYZDisplayViewController%E6%A1%86%E6%9E%B6%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jevons">
+      <meta itemprop="description" content="Welcome">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="越学越执着">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          读YZDisplayViewController框架笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-05-25 15:43:52" itemprop="dateCreated datePublished" datetime="2016-05-25T15:43:52+08:00">2016-05-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-07 21:16:16" itemprop="dateModified" datetime="2019-11-07T21:16:16+08:00">2019-11-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>现在有太多应用有类似腾讯视频多页滑动的需求，类似功能的代码我看了不下10份，自己也亲自码了几个版本出来，直到我看完啊铮的“YZDisplayViewController”之后，才真正感到满意。<br><img src="http://upload-images.jianshu.io/upload_images/304825-4e3ab3a122dc3b25.gif?imageMogr2/auto-orient/strip" alt=""></p>
+<a id="more"></a>
+
+<h2 id="兼容多种自定义"><a href="#兼容多种自定义" class="headerlink" title="兼容多种自定义"></a>兼容多种自定义</h2><p>我不知道在这里用兼容这两个会不会造成一些误解，但一想到这个框架万金油式地使用方式也只能用这个词了。<br>在滑动页面时，我们的标题少不了会有动画，甚至我们的滑动页面还会有其它的控件存在，这导致了我一定要能改框架中的成员变量。很多其它的框架会使用宏的方式把可自定义的部分暴露出来，这样的可维护性虽然时有提高，但是一个应用有多种滑动页风格时，就会有比较大的麻烦。</p>
+<p>而啊铮的这个框架采用的是block的形式</p>
+<p>整个框架的自定义分为几个部分</p>
+<ul>
+<li>内容部分，也就是主体部分</li>
+<li>标题部分</li>
+<li>下标部分</li>
+<li>字体缩放部分</li>
+<li>颜色渐变部分</li>
+<li>遮盖部分</li>
+</ul>
+<pre><code>/**************************************内容************************************/
+/**
+内容是否需要全屏展示
+YES :  全屏：内容占据整个屏幕，会有穿透导航栏效果，需要手动设置tableView额外滚动区域
+NO  :  内容从标题下展示
+ */
+@property (nonatomic, assign) BOOL isfullScreen;
+
+/**
+根据角标，选中对应的控制器
+ */
+@property (nonatomic, assign) NSInteger selectIndex;
+
+/**
+如果_isfullScreen = Yes，这个方法就不好使。
+
+设置整体内容的frame,包含（标题滚动视图和内容滚动视图）
+*/
+- (void)setUpContentViewFrame:(void(^)(UIView *contentView))contentBlock;
+
+/**************************************内容************************************/</code></pre><p>标题的成员变量采用block赋值    </p>
+<pre><code>/**
+ 标题滚动视图背景颜色
+ */
+@property (nonatomic, strong) UIColor *titleScrollViewColor;
+
+
+/**
+ 标题高度
+ */
+@property (nonatomic, assign) CGFloat titleHeight;
+
+/**
+正常标题颜色
+*/
+@property (nonatomic, strong) UIColor *norColor;
+
+/**
+选中标题颜色
+*/
+@property (nonatomic, strong) UIColor *selColor;
+
+/**
+标题字体
+*/
+@property (nonatomic, strong) UIFont *titleFont;
+
+// 一次性设置所有标题属性
+- (void)setUpTitleEffect:(void(^)(UIColor **titleScrollViewColor,UIColor **norColor,UIColor **selColor,UIFont **titleFont,CGFloat *titleHeight))titleEffectBlock;    </code></pre><p>其它部分同理</p>
+<h2 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h2><p>虽然很多的框架都会处理内存的问题，就是当多个页面快速滑动时，机器是如何处理释放和加载页面的呢。啊铮采用的是UIColloctionView加上kvo的方式。</p>
+<p>UIColloctionView自带复用机制，当我们要显示哪个页面时它就会从自控制器数组加载相应的数据进行展示，所以我们释放的是页面而不是数据本身。</p>
+<p>而用kvo的方式进行响应下拉刷新，可以解决delegate所带来结构上的混乱</p>
+<h2 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h2><p>最感人的细节当然是刷新功能，只要对childViewControllers这个数组重新赋值就可以轻松实现刷新，当然这也是    UIColloctionView的功劳</p>
+<pre><code>- (void)refreshDisplay
+{
+    // 清空之前所有标题
+    [self.titleLabels makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [self.titleLabels removeAllObjects];
+
+     // 刷新表格
+    [self.contentScrollView reloadData];
+
+    // 重新设置标题
+    [self setUpTitleWidth];
+
+    [self setUpAllTitle];
+
+}</code></pre>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2016/05/24/Tiramisu/" rel="next" title="经典提拉米苏">
+                  <i class="fa fa-chevron-left"></i> 经典提拉米苏
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2016/05/26/%E5%8F%82%E8%80%83see%E7%9A%84%E4%B8%AA%E4%BA%BA%E4%B8%AD%E5%BF%83/" rel="prev" title="参考see的个人中心">
+                  参考see的个人中心 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#兼容多种自定义"><span class="nav-number">2.</span> <span class="nav-text">兼容多种自定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存管理"><span class="nav-number">3.</span> <span class="nav-text">内存管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#细节"><span class="nav-number">4.</span> <span class="nav-text">细节</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Jevons</p>
+  <div class="site-description" itemprop="description">Welcome</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jevons</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

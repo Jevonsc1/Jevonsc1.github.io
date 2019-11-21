@@ -46,16 +46,18 @@
   };
 </script>
 
-  <meta name="description" content="Welcome">
-<meta property="og:type" content="website">
-<meta property="og:title" content="越学越执着">
-<meta property="og:url" content="http:&#x2F;&#x2F;jevonsc1.github.io&#x2F;archives&#x2F;index.html">
+  <meta name="description" content="在iOS8 之后, 我们发现UILabel不在为我们提供长按弹出复制等操作了, 我们来继承UILabel自己写一个带复制功能的按钮">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="可复制label">
+<meta property="og:url" content="http:&#x2F;&#x2F;jevonsc1.github.io&#x2F;2016&#x2F;06&#x2F;28&#x2F;%E5%8F%AF%E5%A4%8D%E5%88%B6label&#x2F;index.html">
 <meta property="og:site_name" content="越学越执着">
-<meta property="og:description" content="Welcome">
+<meta property="og:description" content="在iOS8 之后, 我们发现UILabel不在为我们提供长按弹出复制等操作了, 我们来继承UILabel自己写一个带复制功能的按钮">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-11-07T13:16:16.000Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://jevonsc1.github.io/archives/">
+<link rel="canonical" href="http://jevonsc1.github.io/2016/06/28/%E5%8F%AF%E5%A4%8D%E5%88%B6label/">
 
 
 <script id="page-configurations">
@@ -63,13 +65,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
-    isArchive: true
+    isArchive: false
   };
 </script>
 
-  <title>Archive | 越学越执着</title>
+  <title>可复制label | 越学越执着</title>
   
 
 
@@ -164,233 +166,158 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        
-        <span class="collection-header">OK! 40 posts in total. Keep on posting.</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://jevonsc1.github.io/2016/06/28/%E5%8F%AF%E5%A4%8D%E5%88%B6label/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jevons">
+      <meta itemprop="description" content="Welcome">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="越学越执着">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          可复制label
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-06-28 16:26:19" itemprop="dateCreated datePublished" datetime="2016-06-28T16:26:19+08:00">2016-06-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-07 21:16:16" itemprop="dateModified" datetime="2019-11-07T21:16:16+08:00">2019-11-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2019</h1>
-    </div>
+        <p>在iOS8 之后, 我们发现UILabel不在为我们提供长按弹出复制等操作了, 我们来继承UILabel自己写一个带复制功能的按钮</p>
+<a id="more"></a>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<pre><code>//
+//  XLabel.m
+//  Zstoday
+//
+//  Created by ZhengJevons on 16/6/28.
+//  Copyright © 2016年 ZhengJevons. All rights reserved.
+//
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-18T08:04:33+08:00"
-              content="2019-10-18">
-          10-18
-        </time>
-      </div>
+#import &quot;XLabel.h&quot;
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/10/18/%E9%A1%B9%E7%9B%AE%E9%87%87%E8%B4%AD%E7%AE%A1%E7%90%86%E8%AE%BA%E6%96%87/" itemprop="url">
-            <span itemprop="name">项目采购管理论文</span>
-          </a>
-      </h2>
+@implementation XLabel
 
-    </header>
-  </article>
+-(BOOL)canBecomeFirstResponder {
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    return YES;
+}
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-17T07:58:03+08:00"
-              content="2019-10-17">
-          10-17
-        </time>
-      </div>
+// 可以响应的方法
+-(BOOL)canPerformAction:(SEL)action withSender:(id)sender {
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/10/17/%E9%A1%B9%E7%9B%AE%E6%B2%9F%E9%80%9A%E7%AE%A1%E7%90%86%E5%92%8C%E5%B9%B2%E7%B3%BB%E4%BA%BA%E7%AE%A1%E7%90%86%E8%AE%BA%E6%96%87/" itemprop="url">
-            <span itemprop="name">项目沟通管理和干系人管理论文</span>
-          </a>
-      </h2>
+    return (action == @selector(copy:));
+}
 
-    </header>
-  </article>
+//针对于响应方法的实现
+-(void)copy:(id)sender {
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    UIPasteboard *pboard = [UIPasteboard generalPasteboard];
+    pboard.string = self.text;
+}
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-16T09:07:42+08:00"
-              content="2019-10-16">
-          10-16
-        </time>
-      </div>
+//UILabel默认是不接收事件的，我们需要自己添加touch事件
+-(void)attachTapHandler {
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/10/16/%E9%A1%B9%E7%9B%AE%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86%E8%AE%BA%E6%96%87/" itemprop="url">
-            <span itemprop="name">项目风险管理论文</span>
-          </a>
-      </h2>
+    self.userInteractionEnabled = YES;
+    UILongPressGestureRecognizer *touch = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    [self addGestureRecognizer:touch];
+}
 
-    </header>
-  </article>
+//绑定事件
+- (id)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+        [self attachTapHandler];
+    }
+    return self;
+}
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-14T21:17:06+08:00"
-              content="2019-10-14">
-          10-14
-        </time>
-      </div>
+-(void)awakeFromNib {
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/10/14/%E9%A1%B9%E7%9B%AE%E6%88%90%E6%9C%AC%E7%AE%A1%E7%90%86%E8%AE%BA%E6%96%87/" itemprop="url">
-            <span itemprop="name">项目成本管理论文</span>
-          </a>
-      </h2>
+    [super awakeFromNib];
+    [self attachTapHandler];
+}
 
-    </header>
-  </article>
+-(void)handleTap:(UIGestureRecognizer*) recognizer {
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-11T20:32:55+08:00"
-              content="2019-10-11">
-          10-11
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/10/11/%E9%A1%B9%E7%9B%AE%E8%BF%9B%E5%BA%A6%E7%AE%A1%E7%90%86%E8%AE%BA%E6%96%87/" itemprop="url">
-            <span itemprop="name">项目进度管理论文</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-10T08:37:57+08:00"
-              content="2019-10-10">
-          10-10
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/10/10/%E4%BA%BA%E5%8A%9B%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E8%AE%BA%E6%96%87/" itemprop="url">
-            <span itemprop="name">人力资源管理论文</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-08T20:28:41+08:00"
-              content="2019-10-08">
-          10-08
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/10/08/%E9%A1%B9%E7%9B%AE%E8%B4%A8%E9%87%8F%E7%AE%A1%E7%90%86%E8%AE%BA%E6%96%87/" itemprop="url">
-            <span itemprop="name">项目质量管理论文</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-06T14:23:16+08:00"
-              content="2019-10-06">
-          10-06
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/10/06/%E9%A1%B9%E7%9B%AE%E6%95%B4%E4%BD%93%E7%AE%A1%E7%90%86%E8%AE%BA%E6%96%87/" itemprop="url">
-            <span itemprop="name">项目整体管理论文</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-02T07:38:39+08:00"
-              content="2019-10-02">
-          10-02
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/10/02/%E8%8C%83%E5%9B%B4%E7%AE%A1%E7%90%86%E8%AE%BA%E6%96%87/" itemprop="url">
-            <span itemprop="name">范围管理论文</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-09-25T15:25:26+08:00"
-              content="2019-09-25">
-          09-25
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/09/25/%E9%AB%98%E9%A1%B9%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90/" itemprop="url">
-            <span itemprop="name">高项案例分析</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
+    [self becomeFirstResponder];
+    UIMenuItem *copyLink = [[UIMenuItem alloc] initWithTitle:@&quot;复制&quot;
+                                                  action:@selector(copy:)];
+    [[UIMenuController sharedMenuController] setMenuItems:[NSArray arrayWithObjects:copyLink, nil]];
+    [[UIMenuController sharedMenuController] setTargetRect:self.frame inView:self.superview];
+    [[UIMenuController sharedMenuController] setMenuVisible:YES animated: YES];
+}</code></pre><p>@end</p>
 
     </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2016/05/27/SoftCheeseCake/" rel="next" title="轻芝士蛋糕">
+                  <i class="fa fa-chevron-left"></i> 轻芝士蛋糕
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2016/08/23/%E9%87%8F%E5%8C%96%E7%AD%96%E7%95%A5%E7%AC%94%E8%AE%B0/" rel="prev" title="量化策略笔记">
+                  量化策略笔记 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
-  
-  
-  
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/4/">4</a><a class="extend next" rel="next" href="/archives/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
-
 
 
           </div>
