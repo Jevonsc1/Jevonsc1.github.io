@@ -219,15 +219,15 @@
 <p>方案一：</p>
 <pre><code>NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
 [request addValue:@&quot;Jiecao/2.4.7&quot; forHTTPHeaderField:@&quot;user-agent&quot;];
-[self.webView loadRequest:request];</code></pre><p>无效！！！</p>
-<a id="more"></a>
-<p>方案二：</p>
+[self.webView loadRequest:request];
+</code></pre><p>无效！！！<br><a id="more"></a><br>方案二：</p>
 <pre><code>#pragma mark - webview delegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:    (NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
 NSMutableURLRequest *req = (NSMutableURLRequest *)request;
 [req addValue:@&quot;Jiecao/2.4.7&quot; forHTTPHeaderField:@&quot;user-agent&quot;];
-}</code></pre><p>无效！！！</p>
+}
+</code></pre><p>无效！！！</p>
 <p>我的需求是不光要能更改user-agent，而且要保留WebView 原来的user-agent 信息，也就是说我需要在其上追加信息。在stackOverflow上搜集了多方答案，最终汇总的解决方案如下：</p>
 <p>在启动时，比如在AppDelegate 中添加如下代码：</p>
 <pre><code>//get the original user-agent of webview
@@ -241,7 +241,8 @@ NSLog(@&quot;new agent :%@&quot;, newAgent);
 
 //regist the new agent
 NSDictionary *dictionnary = [[NSDictionary alloc] initWithObjectsAndKeys:newAgent, @&quot;UserAgent&quot;, nil];
-[[NSUserDefaults standardUserDefaults] registerDefaults:dictionnary];</code></pre><p>这样，WebView在请求时的user-agent 就是我们设置的这个了，如果需要在WebView 使用过程中再次变更user-agent，则需要再通过这种方式修改user-agent， 然后再重新实例化一个WebView。</p>
+[[NSUserDefaults standardUserDefaults] registerDefaults:dictionnary];
+</code></pre><p>这样，WebView在请求时的user-agent 就是我们设置的这个了，如果需要在WebView 使用过程中再次变更user-agent，则需要再通过这种方式修改user-agent， 然后再重新实例化一个WebView。</p>
 <p>参考：</p>
 <p><a href="http://stackoverflow.com/questions/478387/change-user-agent-in-uiwebview-iphone-sdk/23654363#23654363" target="_blank" rel="noopener">http://stackoverflow.com/questions/478387/change-user-agent-in-uiwebview-iphone-sdk/23654363#23654363</a></p>
 
@@ -322,12 +323,12 @@ NSDictionary *dictionnary = [[NSDictionary alloc] initWithObjectsAndKeys:newAgen
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

@@ -219,7 +219,6 @@
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>现在有太多应用有类似腾讯视频多页滑动的需求，类似功能的代码我看了不下10份，自己也亲自码了几个版本出来，直到我看完啊铮的“YZDisplayViewController”之后，才真正感到满意。<br><img src="http://upload-images.jianshu.io/upload_images/304825-4e3ab3a122dc3b25.gif?imageMogr2/auto-orient/strip" alt=""></p>
 <a id="more"></a>
-
 <h2 id="兼容多种自定义"><a href="#兼容多种自定义" class="headerlink" title="兼容多种自定义"></a>兼容多种自定义</h2><p>我不知道在这里用兼容这两个会不会造成一些误解，但一想到这个框架万金油式地使用方式也只能用这个词了。<br>在滑动页面时，我们的标题少不了会有动画，甚至我们的滑动页面还会有其它的控件存在，这导致了我一定要能改框架中的成员变量。很多其它的框架会使用宏的方式把可自定义的部分暴露出来，这样的可维护性虽然时有提高，但是一个应用有多种滑动页风格时，就会有比较大的麻烦。</p>
 <p>而啊铮的这个框架采用的是block的形式</p>
 <p>整个框架的自定义分为几个部分</p>
@@ -251,7 +250,8 @@ NO  :  内容从标题下展示
 */
 - (void)setUpContentViewFrame:(void(^)(UIView *contentView))contentBlock;
 
-/**************************************内容************************************/</code></pre><p>标题的成员变量采用block赋值    </p>
+/**************************************内容************************************/
+</code></pre><p>标题的成员变量采用block赋值    </p>
 <pre><code>/**
  标题滚动视图背景颜色
  */
@@ -279,7 +279,8 @@ NO  :  内容从标题下展示
 @property (nonatomic, strong) UIFont *titleFont;
 
 // 一次性设置所有标题属性
-- (void)setUpTitleEffect:(void(^)(UIColor **titleScrollViewColor,UIColor **norColor,UIColor **selColor,UIFont **titleFont,CGFloat *titleHeight))titleEffectBlock;    </code></pre><p>其它部分同理</p>
+- (void)setUpTitleEffect:(void(^)(UIColor **titleScrollViewColor,UIColor **norColor,UIColor **selColor,UIFont **titleFont,CGFloat *titleHeight))titleEffectBlock;    
+</code></pre><p>其它部分同理</p>
 <h2 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h2><p>虽然很多的框架都会处理内存的问题，就是当多个页面快速滑动时，机器是如何处理释放和加载页面的呢。啊铮采用的是UIColloctionView加上kvo的方式。</p>
 <p>UIColloctionView自带复用机制，当我们要显示哪个页面时它就会从自控制器数组加载相应的数据进行展示，所以我们释放的是页面而不是数据本身。</p>
 <p>而用kvo的方式进行响应下拉刷新，可以解决delegate所带来结构上的混乱</p>
@@ -298,7 +299,8 @@ NO  :  内容从标题下展示
 
     [self setUpAllTitle];
 
-}</code></pre>
+}
+</code></pre>
     </div>
 
     
@@ -377,12 +379,12 @@ NO  :  内容从标题下展示
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

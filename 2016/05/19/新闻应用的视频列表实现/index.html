@@ -215,8 +215,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前段时间接手新华社的项目时，其实也是有接触到视频列表这样的需求的，但毕竟那个时候比较赶，为了能确保性能和功能，就做成直接点击全屏竖屏播放的形式。但是纵观各大新闻应用，自媒体客户端都不会这么直接粗暴，而如今自己公司也有这样的一个需求，所以现在就着手认真思考这样一个需求的各种实现细节。</p>
-<a id="more"></a>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前段时间接手新华社的项目时，其实也是有接触到视频列表这样的需求的，但毕竟那个时候比较赶，为了能确保性能和功能，就做成直接点击全屏竖屏播放的形式。但是纵观各大新闻应用，自媒体客户端都不会这么直接粗暴，而如今自己公司也有这样的一个需求，所以现在就着手认真思考这样一个需求的各种实现细节。<br><a id="more"></a></p>
 <h2 id="具体需求"><a href="#具体需求" class="headerlink" title="具体需求"></a>具体需求</h2><ol>
 <li>点击播放之后能能够在cell中播放而不是跳全屏</li>
 <li>用户主动点击全屏之后，变成横屏播放</li>
@@ -227,18 +226,21 @@
 
 <p>说到横竖的问题，就很自然会考虑app的一个代理方法</p>
 <pre><code>- (UIInterfaceOrientationMask)application:(UIApplication *)application 
-supportedInterfaceOrientationsForWindow:(nullable UIWindow *)window;</code></pre><p>这个方法在官方文档中这样描述的</p>
+supportedInterfaceOrientationsForWindow:(nullable UIWindow *)window;
+</code></pre><p>这个方法在官方文档中这样描述的</p>
 <blockquote>
 <p> When determining whether to rotate a particular view controller, the orientations returned by this method are intersected with the orientations supported by the root view controller or topmost presented view controller. The app and view controller must agree before the rotation is allowed.</p>
 </blockquote>
 <p>就说明了这个方法会在呈现一个新的视图控制时被调用（经实验证实，是会被调用，而且会被调用很多次），当视图控制器完全呈现时停止调用。这个并不是一个意图去主动旋转屏幕的方法，只是声明当时的视图支持以什么方向呈现（同时也侧面不支持什么方向的呈现),因此我们在使用其它方法旋转屏幕时，一定要通过这个方法的支持才能使用，例如这个方法</p>
 <pre><code>[[UIDevice currentDevice] setValue:[NSNumber numberWithInteger:UIInterfaceOrientationLandscapeRight]
- forKey:@&quot;orientation&quot;];</code></pre><p>对于应用中有很多页面有不同方向的呈现可以有更一般的实现</p>
+ forKey:@&quot;orientation&quot;];
+</code></pre><p>对于应用中有很多页面有不同方向的呈现可以有更一般的实现</p>
 <pre><code>-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
 
 -(BOOL)shouldAutorotate;
 
--(NSUInteger)supportedInterfaceOrientations;  </code></pre><p>在官方文档是这样描述    </p>
+-(NSUInteger)supportedInterfaceOrientations;  
+</code></pre><p>在官方文档是这样描述    </p>
 <blockquote>
 <p>   When the user changes the device orientation, the system calls this method on the root view controller or the topmost presented view controller that fills the window. If the view controller supports the new orientation, the window and view controller are rotated to the new orientation. This method is only called if the view controller’s shouldAutorotate method returns YES.</p>
 </blockquote>
@@ -257,7 +259,8 @@ supportedInterfaceOrientationsForWindow:(nullable UIWindow *)window;</code></pre
 
 -(UIInterfaceOrientationMask)interfaceOrientationMask;
 
-@end</code></pre><p> 单例实现文件</p>
+@end
+</code></pre><p> 单例实现文件</p>
 <pre><code>#import &quot;Tool.h&quot;
 
 @implementation Tool
@@ -289,48 +292,48 @@ supportedInterfaceOrientationsForWindow:(nullable UIWindow *)window;</code></pre
         return UIInterfaceOrientationMaskPortrait;
     }
 }
-@end</code></pre><p>AppDelegate</p>
+@end
+</code></pre><p>AppDelegate</p>
 <pre><code>-(UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window{
 
     return [Tool sharedClient].interfaceOrientationMask;
 
-}   </code></pre><p> 如此只要在新的控制器出现前改变单例的flag的可以改变新出现的控制器的方向，甚至可以在控制器出现之后结合其它方法随时旋屏。</p>
-<h5>播放器非全屏播放</h5> 
-对于播放器播放的界面大小无非就是下面几个方法确定
+}   
+</code></pre><p> 如此只要在新的控制器出现前改变单例的flag的可以改变新出现的控制器的方向，甚至可以在控制器出现之后结合其它方法随时旋屏。</p>
+<p><h5>播放器非全屏播放</h5><br>对于播放器播放的界面大小无非就是下面几个方法确定</p>
+<pre><code>    _moviePlayer =  [[MPMoviePlayerController alloc] init];
 
-<pre><code> _moviePlayer =  [[MPMoviePlayerController alloc] init];
+    [[_moviePlayer view] setFrame:self.frame];
 
- [[_moviePlayer view] setFrame:self.frame];
+    _moviePlayer.contentURL = [NSURL URLWithString:_movieURL];
 
- _moviePlayer.contentURL = [NSURL URLWithString:_movieURL];
+    _moviePlayer.scalingMode = MPMovieScalingModeAspectFit;
 
- _moviePlayer.scalingMode = MPMovieScalingModeAspectFit;
+   [_moviePlayer setControlStyle:MPMovieControlStyleEmbedded];
+</code></pre><p> 最后把播放器的view加入到cell里面或者是其它的view中，就可以完成嵌入播放器了，而对于播放器的各种状态的回调，用通知方法即可，最后一定要记得remove通知，不然会造成内存泄漏。</p>
+<pre><code>     [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(moviePlayerLoadStateChanged:)
+                                                 name:MPMoviePlayerLoadStateDidChangeNotification
+                                               object:nil];
 
-[_moviePlayer setControlStyle:MPMovieControlStyleEmbedded];</code></pre><p> 最后把播放器的view加入到cell里面或者是其它的view中，就可以完成嵌入播放器了，而对于播放器的各种状态的回调，用通知方法即可，最后一定要记得remove通知，不然会造成内存泄漏。</p>
-<pre><code> [[NSNotificationCenter defaultCenter] addObserver:self
-                                         selector:@selector(moviePlayerLoadStateChanged:)
-                                             name:MPMoviePlayerLoadStateDidChangeNotification
-                                           object:nil];
+    //视频结束
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(moviePlayBackDidFinish:)
+                                                 name:MPMoviePlayerPlaybackDidFinishNotification
+                                               object:nil];
 
-//视频结束
-[[NSNotificationCenter defaultCenter] addObserver:self
-                                         selector:@selector(moviePlayBackDidFinish:)
-                                             name:MPMoviePlayerPlaybackDidFinishNotification
-                                           object:nil];
+    //进入全屏
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(moviePlayEnterFullscreen:)
+                                                 name:MPMoviePlayerDidEnterFullscreenNotification
+                                               object:nil];
 
-//进入全屏
-[[NSNotificationCenter defaultCenter] addObserver:self
-                                         selector:@selector(moviePlayEnterFullscreen:)
-                                             name:MPMoviePlayerDidEnterFullscreenNotification
-                                           object:nil];
-
-//退出全屏
-[[NSNotificationCenter defaultCenter] addObserver:self
-                                         selector:@selector(moviePlayExitFullscreen:)
-                                             name:MPMoviePlayerWillExitFullscreenNotification
-                                           object:nil];   </code></pre><h5>计算TableView中的播放器在控制器View中位置</h5>  
-播放视频的cell离开了显示屏，就立刻停止播放，这样的需求就必须要计算TableView中的播放器在控制器View中位置，我们很容易联想到了tableView的父类scrollView的代理方法，最后实现如下：
-
+    //退出全屏
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(moviePlayExitFullscreen:)
+                                                 name:MPMoviePlayerWillExitFullscreenNotification
+                                               object:nil];   
+</code></pre><p><h5>计算TableView中的播放器在控制器View中位置</h5><br>播放视频的cell离开了显示屏，就立刻停止播放，这样的需求就必须要计算TableView中的播放器在控制器View中位置，我们很容易联想到了tableView的父类scrollView的代理方法，最后实现如下：</p>
 <pre><code>-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
 if (!indexPaths) {
     return;
@@ -349,7 +352,8 @@ if (!indexPaths) {
     [movieView.moviePlayer stop];
 
   }    
-｝                                                    </code></pre>
+｝                                                    
+</code></pre>
     </div>
 
     
@@ -428,12 +432,12 @@ if (!indexPaths) {
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

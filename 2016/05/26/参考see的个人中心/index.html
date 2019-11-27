@@ -221,7 +221,6 @@
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>至从一位好友去了“see”工作之后，我就一直对see这个软件持有比较大的关注，对于它的一些UI效果也会忍不住去尝试实现，这次就尝试实现个人中心。</p>
 <p><img src="/images/see.gif" alt=""></p>
 <a id="more"></a>
-
 <h2 id="结构分析"><a href="#结构分析" class="headerlink" title="结构分析"></a>结构分析</h2><p><img src="/images/see1.png" alt=""></p>
 <p>通过基本的交互可以将结构分成4个部分</p>
 <ul>
@@ -253,7 +252,8 @@ tableView.tabBar = _tabBar;
 
 
 
-}</code></pre><p>设置多个tableview，传递头部视图的高度，为了当tableview滑动时可以改变</p>
+}
+</code></pre><p>设置多个tableview，传递头部视图的高度，为了当tableview滑动时可以改变</p>
 <pre><code>- (void)setUpChildControlller
 {
 
@@ -270,7 +270,8 @@ tableView.tabBar = _tabBar;
     personChildVc.titleLabel = _titleLabel;
 
     }
-}</code></pre><p>tableview滑动的代理方法</p>
+}
+</code></pre><p>tableview滑动的代理方法</p>
 <pre><code>- (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
      // 获取当前偏移量
@@ -298,7 +299,8 @@ tableView.tabBar = _tabBar;
     // 设置导航条背景图片
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithWhite:1 alpha:alpha]] forBarMetrics:UIBarMetricsDefault];
 
-}    </code></pre><h2 id="更多细节"><a href="#更多细节" class="headerlink" title="更多细节"></a>更多细节</h2><p>当头部的UserinteractionEnabled 为 no时，响应者链条就会把响应传递到tableview处，这样头部也可以实现滑动。</p>
+}    
+</code></pre><h2 id="更多细节"><a href="#更多细节" class="headerlink" title="更多细节"></a>更多细节</h2><p>当头部的UserinteractionEnabled 为 no时，响应者链条就会把响应传递到tableview处，这样头部也可以实现滑动。</p>
 <p>为了让这个框架具有良好的扩展性，即我不需要手动告诉框架有多少个tableview，它会根据childcontroller的数量自动创建tabbar中的按钮数，并且能准确实现监听。这时用touchbegin监听点击，通知方法实现传递事件就可以有很良好扩展性。</p>
 <pre><code>- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -325,7 +327,8 @@ tableView.tabBar = _tabBar;
     // 如果没有处理事件，就调用系统自带的处理方式
     [super touchesBegan:touches withEvent:event];
 
-}</code></pre><p>在代码结构中，具体实现的类可以在viewdidload方法中为那些图片啊，子控制器初始化什么，而在父类willdidappear方法中就可以对这些可以赋值的变量进行处理，这样代码的风格就可以得到良好维护。</p>
+}
+</code></pre><p>在代码结构中，具体实现的类可以在viewdidload方法中为那些图片啊，子控制器初始化什么，而在父类willdidappear方法中就可以对这些可以赋值的变量进行处理，这样代码的风格就可以得到良好维护。</p>
 <pre><code>- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -344,7 +347,8 @@ tableView.tabBar = _tabBar;
         [self setUpTabBar];
     });
 
-}</code></pre><h2 id="存在无法解决的问题"><a href="#存在无法解决的问题" class="headerlink" title="存在无法解决的问题"></a>存在无法解决的问题</h2><p>无论在see中还是在我这个框架中都有一个问题，当a列表被滑动了100，切换到b列表滑动200，在切换到a列表发现无端端跟着也被滑动了200。这是这种UI结构所带来无法解决的问题。</p>
+}
+</code></pre><h2 id="存在无法解决的问题"><a href="#存在无法解决的问题" class="headerlink" title="存在无法解决的问题"></a>存在无法解决的问题</h2><p>无论在see中还是在我这个框架中都有一个问题，当a列表被滑动了100，切换到b列表滑动200，在切换到a列表发现无端端跟着也被滑动了200。这是这种UI结构所带来无法解决的问题。</p>
 
     </div>
 
@@ -424,12 +428,12 @@ tableView.tabBar = _tabBar;
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

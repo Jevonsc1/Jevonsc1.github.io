@@ -233,7 +233,6 @@
 </ul>
 <p><img src="http://s3.51cto.com/wyfs01/M01/09/BE/wKioJlGV36aBSXg6AAA81UMWsZg349.jpg" alt=""></p>
 <a id="more"></a>
-
 <p>段“text segment ”是应用程序运行时应用程序代码存在的内存段。每一个指令，每一个单个函数、过程、方法和执行代码都存在这个内存段中直到应用程序退出。一般情况下，你不会真的不得不知道这个段的任何事情。</p>
 <p>当应用开始以后，函数main() 被调用，一些空间分配在”stack” 中。这是为应用分配的另一个段的内存空间，这是为了函数变量存储需要而分配的 内存。每一次在应用中调用一个函数，“stack ”的一部分会被分配在”stack” 中，称之为”frame” 。新函数的本地变量分配在这里。</p>
 <p>正如名称所示，“stack ”是后进先出（LIFO ）结构。当函数调用其他的函数时，“stack frame ”会被创建；当其他函数退出后，这个“frame ”会自动被破坏。</p>
@@ -250,8 +249,10 @@
 <p>NSString 的对象就是stack 中的对象，NSMutableString 的对象就是heap 中的对象。前者创建时分配的内存长度固定且不可修改；后者是分配内存长度是可变的，可有多个owner, 适用于计数管理内存管理模式。</p>
 </blockquote>
 <p>两类对象的创建方法也不同，前者直接创建</p>
-<pre><code>NSString * str1=@&quot;welcome&quot;; </code></pre><p> 而后者需要先分配再初始化</p>
-<pre><code>NSMutableString * mstr1=[[NSMutableString alloc] initWithString:@&quot;welcome&quot;]; </code></pre>
+<pre><code>NSString * str1=@&quot;welcome&quot;; 
+</code></pre><p> 而后者需要先分配再初始化</p>
+<pre><code>NSMutableString * mstr1=[[NSMutableString alloc] initWithString:@&quot;welcome&quot;]; 
+</code></pre>
     </div>
 
     
@@ -330,12 +331,12 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

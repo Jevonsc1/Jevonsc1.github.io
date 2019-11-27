@@ -221,7 +221,6 @@
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>此文中的量化策略，指的是量化经济投资中的策略，从目前的感觉上来说，写这种东西的感觉有点像写数据挖掘的策略，基本上好的策略都是用统计方式去判定，而没有我开始认为的纯数理辩证，这对我来说多不能忍啊，但也无能为力，因为市场经济复杂多变，而且有时会遇上非自然经济的变化，即市场主力反技术控制。</p>
 <a id="more"></a>
-
 <h2 id="双均线策略"><a href="#双均线策略" class="headerlink" title="双均线策略"></a>双均线策略</h2><p>双均线策略，通过建立m天移动平均线，n天移动平均线，则两条均线必有交点。若m&gt;n，n天平均线“上穿越”m天均线则为买入点，反之为卖出点。该策略基于不同天数均线的交叉点，抓住股票（外汇）的强势和弱势时刻，进行交易。</p>
 <p>这样的策略看似挺理想的，但是远远不够，因为实际上昨天的收盘价参考意义上会比很多天前的意义大一些，所以昨天的数值的权重要高一些，用移动平均的意义就会大一些，公式如下：<br><img src="https://joinquant-image.b0.upaiyun.com/2d6eb1d7b941056134d913ad484116a7" alt=""></p>
 <p>证明也是比较简单的，主要是证明<br><img src="http://jevonsc1.github.io/images/function1.pdf" alt="">  和 <img src="http://jevonsc1.github.io/images/function2.pdf" alt="">  两部分</p>
@@ -241,44 +240,49 @@
 <li><p>1、市场：原版海龟选择交易纽约和芝加哥的场内期货。筛选标准则是高流动性，我大A股市场当然也符合这个标准啦。</p>
 </li>
 <li><p>2、仓位：这可以说是海龟交易系统最核心的部分。Richard Dennis期望通过市场的波动性水平来管理仓位。其构建了指数N来衡量波动性水平。指数的构建为以下四步<br>（注：如果暂时不能理解下面的公式，完全不用担心，这些都在代码中体现出来，大家可以在代码的实际使用中搞明白这些麻烦的公式）。</p>
-<pre><code>（1）True Range</code></pre></li>
+<pre><code>  （1）True Range
+</code></pre></li>
 </ul>
-<pre><code>True Range = Maximum(H−L,H−PDC,PDC−L)
+<pre><code>    True Range = Maximum(H−L,H−PDC,PDC−L)
 
-公式中，True Range表示一天内的波动量，H为当日日内最高价，L为当日日内最低价，PDC为前一日收盘价。
+    公式中，True Range表示一天内的波动量，H为当日日内最高价，L为当日日内最低价，PDC为前一日收盘价。
 
-（2）N
-
-
-N = (19 * PDN+TR) / 20
-
-公式中，TR为True Range，即一天内波动量，PDN为前一日的N值。此公式的真是含义为计算之前20天（包括今天在内）的N的平均值
-
-（3）Dollar Volatility
+    （2）N
 
 
-Dollar Volatility = N * DollarsPerPoint
-公式中，Dollar Volatility指的是波动的价格，Dollars per Point指的是标的股票每波动一个最小单位，1手股票的总价格变化量。在国内最小变化量是0.01元，1手是100股。所以Dollars per Point就是0.01×100=1
+    N = (19 * PDN+TR) / 20
 
-（4）Unit
+    公式中，TR为True Range，即一天内波动量，PDN为前一日的N值。此公式的真是含义为计算之前20天（包括今天在内）的N的平均值
+
+    （3）Dollar Volatility
 
 
-Unit = 1% of Account / Market Dollar Volatility
-Unit = 1% of Account / Market Dollar Volatility
-公式中，Unit即为我们买卖的单位，1% of Account是总资产的1%，Market Dollar Volatility就是我们之前算出的Dollar Volatility，通过此公式计算出的Unit就是我们要买入的单位数量。此公式的意义是在一般情况下（市场波动率不大的时候），如果买入1Unit单位的资产，当天震幅使得总资产的变化不超过1%</code></pre><ul>
+    Dollar Volatility = N * DollarsPerPoint
+    公式中，Dollar Volatility指的是波动的价格，Dollars per Point指的是标的股票每波动一个最小单位，1手股票的总价格变化量。在国内最小变化量是0.01元，1手是100股。所以Dollars per Point就是0.01×100=1
+
+    （4）Unit
+
+
+    Unit = 1% of Account / Market Dollar Volatility
+    Unit = 1% of Account / Market Dollar Volatility
+    公式中，Unit即为我们买卖的单位，1% of Account是总资产的1%，Market Dollar Volatility就是我们之前算出的Dollar Volatility，通过此公式计算出的Unit就是我们要买入的单位数量。此公式的意义是在一般情况下（市场波动率不大的时候），如果买入1Unit单位的资产，当天震幅使得总资产的变化不超过1%
+</code></pre><ul>
 <li><p>3、入市：海龟将所有资金分为两部分，一部分资金按系统一执行，一部分资金按系统二执行<br>系统一</p>
-<pre><code>(1)若当前价格高于过去20日的最高价，则买入一个Unit（注意是分钟回测）
-(2)加仓：若股价在上一次买入（或加仓）的基础上上涨了0.5N，则加仓一个Unit</code></pre><p>系统二<br>与系统一相一致，但当如破55日最高价时才购买</p>
-<pre><code>(1)若当前价格高于过去55日的最高价，则买入一个Unit（注意是分钟回测）
-(2)加仓：若股价在上一次买入（或加仓）的基础上上涨了0.5N，则加仓一个Unit</code></pre><p>Example：若某只股票A的N为2，20日最高价为100<br>则当股价突破100时买入一个Unit，当股价突破100+0.5×2=101时加仓一个Unit，当股价突破101+0.5×2=102时加仓一个Unit。</p>
+<pre><code>  (1)若当前价格高于过去20日的最高价，则买入一个Unit（注意是分钟回测）
+  (2)加仓：若股价在上一次买入（或加仓）的基础上上涨了0.5N，则加仓一个Unit
+</code></pre><p>系统二<br>与系统一相一致，但当如破55日最高价时才购买</p>
+<pre><code>  (1)若当前价格高于过去55日的最高价，则买入一个Unit（注意是分钟回测）
+  (2)加仓：若股价在上一次买入（或加仓）的基础上上涨了0.5N，则加仓一个Unit
+</code></pre><p>Example：若某只股票A的N为2，20日最高价为100<br>则当股价突破100时买入一个Unit，当股价突破100+0.5×2=101时加仓一个Unit，当股价突破101+0.5×2=102时加仓一个Unit。</p>
 </li>
 <li><p>4、止损：即损失达到多少时就一定要卖出现有仓位。海龟交易系统规定，当价格比最后一次买入价格下跌2N时，则卖出全部头寸止损（也就是，在一般情况下，损失不会超过2%）。</p>
 </li>
 <li><p>5、止盈：</p>
-<pre><code>系统一
-当股价跌破10日内最低价时（10日唐奇安通道下沿），清空头寸结束本次交易
-系统二
-当股价跌破20日内最低价时（20日唐奇安通道下沿），清空头寸结束本次交易</code></pre></li>
+<pre><code>  系统一
+  当股价跌破10日内最低价时（10日唐奇安通道下沿），清空头寸结束本次交易
+  系统二
+  当股价跌破20日内最低价时（20日唐奇安通道下沿），清空头寸结束本次交易
+</code></pre></li>
 <li><p>6、技巧：资金的调整。开始时设定两个比例：Loss和Adjust。若交易结束后损失的资金占总资金比例大于Loss，则今后只用现有投资资金的Adjust比例。<br>Example：若初始资金为100万，设定Loss=80%，Adjust=90%。则当总资产低于100×80%=80万时，进行一次资金调整，以后只使用80×90%=72万的资金用于投资行为</p>
 </li>
 </ul>
@@ -361,12 +365,12 @@ Unit = 1% of Account / Market Dollar Volatility
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

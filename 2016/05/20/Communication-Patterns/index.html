@@ -231,13 +231,11 @@
 <li><a href="#小结">小结</a></li>
 </ol>
 <a id="more"></a>
-
 <p>每个应用程序或多或少，都由一些松耦合的对象构成，这些对象彼此之间要想很好的完成任务，就需要进行消息传递。本文将介绍所有可用的消息传递机制，并通过示例来介绍这些机制在苹果的Framework中如何使用，同时，还介绍了一些最佳实践建议，告诉你什么时机该选择使用什么机制。</p>
 <p>虽然这一期的主题是关于Foundation Framework的，不过本文中还介绍了一些超出Foundation Framework(KVO和Notification)范围的一些消息传递机制，另外还介绍了delegation，block和target-action。</p>
 <p>大多数情况下，消息传递该使用什么机制，是很明确的了，当然了，在某些情况下该使用什么机制并没有明确的答案，需要你亲自去尝试一下。</p>
 <p>本文中，会经常提及接收者[recipient]和发送者[sender]。在消息传递机制中具体是什么意思，我们可以通过一个示例来解释：一个table view是发送者，而它的delegate就是接收者。Core Data managed object context是notification的发送者，而获取这些notification的主体则是接收者。一个滑块(slider)是action消息的发送者，而在代码里面对应着实现这个action的responder就是接收者。对象中的某个属性支持KVO，那么谁修改这个值，谁就是发送者，对应的观察者(observer)则是接收者。</p>
-<br/>
-
+<p><br/></p>
 <h1 id="可用的机制"><a href="#可用的机制" class="headerlink" title="可用的机制"></a>可用的机制</h1><p>首先我们来看看每种机制的具体特点。在下一节中，我会结合一个流程图来介绍如何在具体情况下，选择正确的消息传递机制。最后，将介绍一些来自苹果Framework中的示例，并会解释在某种确定情况下为什么要选择固定的机制。</p>
 <h2 id="KVO"><a href="#KVO" class="headerlink" title="KVO"></a>KVO</h2><blockquote>
 <p>KVO提供了这样一种机制：当对象中的某个属性值发生了改变，可以对这些值的观察者做出通知。KVO的实现包含在Foundation里面，基于Foundation构建的许多Framework对KVO都有所依赖。要想了解更多关于如何使用KVO，可以阅读本期由Daniel写的的KVO和KVC文章。<br>如果对某个对象中值的改变情况感兴趣，那么可以使用KVO消息传递机制。这里有两个要求，首先，接收者(会接收到值发生改变的消息)必须知道发送者(值将发生改变的那个对象)。另外，接收者同样还需要知道发送者的生命周期，因为在销毁发送者对象之前，需要取消观察者的注册。如果这两个要求都满足了，消息传递过程中可以是1对多(多个观察者可以注册某个对象中的值)。<br>如果计划在Core Data对象上使用KVO，需要知道这跟一般的KVO使用方法有点不同。那就是必须结合Core Data的故障机制(faulting mechanism)，一旦core data出现了故障，它将会触发其属性对应的观察者(即使这些属性值没有发生改变)。</p>
@@ -253,7 +251,8 @@
 </blockquote>
 <pre><code>self.myTableView.selectionHandler = ^void(NSIndexPath *selectedIndexPath) {
 // handle selection ...
-};</code></pre><blockquote>
+};
+</code></pre><blockquote>
 <p>上面代码的问题在于self retain了table view，而table view为了之后能够使用block，进而 retain了block。而table view又不能把这个引用nil掉，因为它不知道什么时候不在需要这个block了。如果我们保证不了可以打破这个retain环，而我们又需要retain发送者，此时block不是好的选择。<br>NSOperation就可以很好的使用block，因为它能再某个时机打破retain环：</p>
 </blockquote>
 <pre><code>self.queue = [[NSOperationQueue alloc] init];
@@ -261,10 +260,9 @@ MyOperation *operation = [[MyOperation alloc] init];
 operation.completionBlock = ^{
        [self finishedOperation];
 };
-[self.queue addOperation:operation];</code></pre><blockquote>
+[self.queue addOperation:operation];
+</code></pre><blockquote>
 <p>乍一看这似乎是一个retain环：self retain了queue，queue retain了operation，而operation retain了completion block，而completion blockretain了self。不过，在这里，将operation添加到queue时，会使operation在某个时机被执行，然后从queue中remove掉（如果没有被执行，就会有大问题了）。一单queue移除了operation之后，retain环就被打破了。</p>
-</blockquote>
-<blockquote>
 <p>再来一个示例：这里实现了一个视频编码器的类，里面有一个名为encodeWithCompletionHandler:的方法。为了避免出现retain环，我们需要确保编码器这个对象能够在某个时机nil掉其对block的引用。其内部代码如下所示：</p>
 </blockquote>
 <pre><code>@interface Encoder ()
@@ -280,15 +278,14 @@ operation.completionBlock = ^{
 - (void)finishedEncoding
 {
     self.completionHandler();
-    self.completionHandler = nil; // &lt;- Don&apos;t forget this!
+    self.completionHandler = nil; // &lt;- Don&#39;t forget this!
 }
-@end</code></pre><blockquote>
+@end
+</code></pre><blockquote>
 <p>在上面的代码中，一旦编码任务完成，就会调用complietion block，进而把引用nil掉。<br>如果我们发送的消息属于一次性的(具体到某个方法的调用)，由于这样可以打破潜在的retain环，那么使用block是非常不错的选择。另外，如果为了让代码可读性更强，更有连贯性，那最好是使用block了。根据这个思路，block经常可以用于completion handler、error handler等。</p>
 </blockquote>
 <h2 id="Target-Action"><a href="#Target-Action" class="headerlink" title="Target-Action"></a>Target-Action</h2><blockquote>
 <p>Target-Action主要被用于响应用户界面事件时所需要传递的消息中。iOS中的UIControl和Mac中的NSControl/NSCell都支持这种机制。Target-Action在消息的发送者和接收者之间建立了一个非常松散耦合。消息的接收者不知道发送者，甚至消息的发送者不需要预先知道消息的接收者。如果target是nil，action会在响应链(responder chain)中被传递，知道找到某个能够响应该aciton的对象。在iOS中，每个控件都能关联多个target-action。</p>
-</blockquote>
-<blockquote>
 <p>基于target-action消息传递的机制有一个局限就是发送的消息不能携带自定义的payload。在Mac的action方法中，接收者总是被放在第一个参数中。而在iOS中，可以选择性的将发送者和和触发action的事件作为参数。除此之外，没有别的办法可以对发送action消息内容做控制。</p>
 </blockquote>
 <h1 id="做出正确的选择"><a href="#做出正确的选择" class="headerlink" title="做出正确的选择"></a>做出正确的选择</h1><p>根据上面讨论的结果，这里我画了一个流程图，来帮助我们何时使用什么消息传递机制做出更好的决定。忠告：流程图中的建议并非最终的答案；可能还有别的选项依然能实现目的。只不过大多数情况下此图可以引导你做出正确的决定。</p>
@@ -296,11 +293,7 @@ operation.completionBlock = ^{
 <p>上图中，还有一些细节需要做更近一步的解释：</p>
 <blockquote>
 <p>上图中的有个盒子这样说到：sender is KVO compliant(发送者支持compliant)。这不仅以意味着当值发生改变时，发送者会发送KVO通知，并且观察者还需要知道发送者的生命周期。如果发送者被存储在一个weak属性中，那么发送者有可能被nil掉，进而引起观察者发生leak。</p>
-</blockquote>
-<blockquote>
 <p>另外底部的一个盒子说到：message is direct response to method call(消息直接在方法的调用代码中响应)。也就是说处理消息的代码跟方法的调用代码处于相同的地方。</p>
-</blockquote>
-<blockquote>
 <p>最后，在左下角，处于一个决策问题的判断状态：sender can guarantee to nil out reference to block?(发送者能够确保nil掉到block的引用吗？)，这实际上涉及到之前我们讨论到基于block 的APIs已经潜在的retain环。使用block时，如果发送者不能保证在某个实际能够把对block的引用nil掉，那么将会遇到retain环的问题。</p>
 </blockquote>
 <h1 id="Framework示例"><a href="#Framework示例" class="headerlink" title="Framework示例"></a>Framework示例</h1><p>本节我们通过一些来自苹果Framework的示例，来看看在实际使用某种机制之前，苹果是处于何种原因做出选择的。</p>
@@ -400,12 +393,12 @@ operation.completionBlock = ^{
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

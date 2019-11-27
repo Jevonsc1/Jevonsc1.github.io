@@ -215,13 +215,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><img src="http://jevonsc1.github.io/images/ow_baolei.jpeg" alt=""></p>
-<a id="more"></a>
-<ol>
-<li>前言</li>
-</ol>
-<hr>
-<p>写编译型语言多多少少都会遇到宏的使用，尤其是写oc，将一些事情放在预处理阶段做的话还是有很多好处的。<br>例如：</p>
+        <p><img src="http://jevonsc1.github.io/images/ow_baolei.jpeg" alt=""><br><a id="more"></a></p>
+<h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p>写编译型语言多多少少都会遇到宏的使用，尤其是写oc，将一些事情放在预处理阶段做的话还是有很多好处的。<br>例如：</p>
 <ul>
 <li>不扩大二进制体积</li>
 <li>不占用运行时</li>
@@ -229,11 +224,7 @@
 <li>深入理解预处理过程</li>
 </ul>
 <p>很多优秀的框架都采用大量宏来维持简介的代码结构，治理友情链接同学对rac这个框架的宏的分析<a href="https://halfrost.com/reactivecocoa_macro/" target="_blank" rel="noopener">高手同学的友情链接</a></p>
-<ol start="2">
-<li>“#”和”##”的存在意义</li>
-</ol>
-<hr>
-<p>“#”和”##”这两个宏用来把宏的参数变成字符串或者和其他字符相连，试想没有这两个宏语法是否可以实现相同功能，或者一个可以实现另一个。</p>
+<h2 id="2-“-”和”-”的存在意义"><a href="#2-“-”和”-”的存在意义" class="headerlink" title="2. “#”和”##”的存在意义"></a>2. “#”和”##”的存在意义</h2><p>“#”和”##”这两个宏用来把宏的参数变成字符串或者和其他字符相连，试想没有这两个宏语法是否可以实现相同功能，或者一个可以实现另一个。</p>
 <p>为了消除二义性，如果不用<code>#</code>而是用<code>&quot;A&quot;</code>的形式来生成字符串的话，</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define stringfiy(A) &quot;A&quot;</span><br></pre></td></tr></table></figure>
 <p>stringfiy(a) 的结果到底是 “a” 还是 “A” 是不明确的</p>
@@ -245,44 +236,19 @@
 <p>生成的是字符串，而不是宏的名字，无法进一步做宏替换。</p>
 <p>无法通过 <code>##</code> 来实现 <code>#</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define stringfiy(A) &quot;##A##&quot;</span><br></pre></td></tr></table></figure>
-
 <p>stringfiy(a) 只会得到字符串<code>&quot;##A##&quot;</code></p>
-<ol start="3">
-<li>中间宏的使用</li>
-</ol>
-<hr>
-<p>在课上例子里用到了<code>_CONCAT</code>宏，这个宏其实和直接使用<code>##</code>语法基本等效，但是直接使用<code>##</code>会有一些问题。直接使用<code>_CONCAT</code>因为展开后马上要执行<code>##</code>，所以类似 <code>_CONCAT（1, _CONCAT(2, 3))</code> 这样的嵌套操作是无法进行的，第一次展开会得到<code>1_CONCAT(2, 3)</code>这样的结果，发生错误，如果再定义一层 CONCAT</p>
+<h2 id="3-中间宏的使用"><a href="#3-中间宏的使用" class="headerlink" title="3. 中间宏的使用"></a>3. 中间宏的使用</h2><p>在课上例子里用到了<code>_CONCAT</code>宏，这个宏其实和直接使用<code>##</code>语法基本等效，但是直接使用<code>##</code>会有一些问题。直接使用<code>_CONCAT</code>因为展开后马上要执行<code>##</code>，所以类似 <code>_CONCAT（1, _CONCAT(2, 3))</code> 这样的嵌套操作是无法进行的，第一次展开会得到<code>1_CONCAT(2, 3)</code>这样的结果，发生错误，如果再定义一层 CONCAT</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define CONCAT(A, B) _CONCAT(A, B))</span><br></pre></td></tr></table></figure>
 <p><code>CONCAT（1, CONCAT(2, 3))</code>展开后不会马上进行 ##，所以可以顺利得到<code>123</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CONCAT（1, CONCAT(2, 3))</span><br><span class="line">_CONCAT（1, CONCAT(2, 3))</span><br><span class="line">_CONCAT（1, _CONCAT(2, 3))</span><br><span class="line">_CONCAT（1, 2 ## 3))</span><br><span class="line">_CONCAT（1, 23))</span><br><span class="line">1 ## 23</span><br><span class="line">123</span><br></pre></td></tr></table></figure>
-
-
-
-
-<ol start="4">
-<li>宏的举例使用</li>
-</ol>
-<hr>
-<ol start="5">
-<li>例子的改进</li>
-</ol>
-<hr>
-<p>尝试让IS_EQ宏支持大的数在前面。</p>
+<h2 id="4-宏的举例使用"><a href="#4-宏的举例使用" class="headerlink" title="4. 宏的举例使用"></a>4. 宏的举例使用</h2><h2 id="5-例子的改进"><a href="#5-例子的改进" class="headerlink" title="5. 例子的改进"></a>5. 例子的改进</h2><p>尝试让IS_EQ宏支持大的数在前面。</p>
 <p>通过把-1换成SUB1，让宏可以正常识别来解决，缺点是 DEC 和 ARG_AT 会失去通用性。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#define _ARG_ATSUB1(_0, ...) SUB1</span><br><span class="line">#define _IS_EQ0_SUB1   0</span><br><span class="line"></span><br><span class="line">//修改 DEC</span><br><span class="line">#define DEC(N)          \</span><br><span class="line">  ARG_AT(N, SUB1, 0, 1, 2, 3, 4)</span><br></pre></td></tr></table></figure>
-
-
 <p>完整的宏定义如下</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ARG_AT(INDEX, ...) _ARG_AT##INDEX(__VA_ARGS__)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _ARG_ATSUB1(_0, ...) SUB1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _ARG_AT0(_0, ...) _0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _ARG_AT1(_0, _1, ...) _1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _ARG_AT2(_0, _1, _2, ...) _2</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _ARG_AT3(_0, _1, _2, _3, ...) _3</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _ARG_AT4(_0, _1, _2, _3, _4, ...) _4</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _ARG_AT5(_0, _1, _2, _3, _4, _5, ...) _5</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DEC(N)          \</span></span><br><span class="line">  ARG_AT(N, SUB1, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IS_EQ(A, B)   _CONCAT(_IS_EQ, A)(B)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _CONCAT(A, B)   A ## B</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _IS_EQ0(B)    _CONCAT(_IS_EQ0_, B)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _IS_EQ0_SUB1   0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _IS_EQ0_0   1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _IS_EQ0_1   0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _IS_EQ0_2   0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _IS_EQ0_3   0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _IS_EQ0_4   0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _IS_EQ0_5   0</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _IS_EQ1(B)    _IS_EQ0(DEC(B))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _IS_EQ2(B)    _IS_EQ1(DEC(B))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _IS_EQ3(B)    _IS_EQ2(DEC(B))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _IS_EQ4(B)    _IS_EQ3(DEC(B))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _IS_EQ5(B)    _IS_EQ4(DEC(B))</span></span><br></pre></td></tr></table></figure>
-
-<ol start="6">
-<li>创建IS_GT(A, B)宏</li>
-</ol>
-<hr>
-<p>现在尝试创建一个<code>IS_GT(A, B)</code>宏，当 A 比 B 大的时候为1， 否则为0。</p>
+<h2 id="6-创建IS-GT-A-B-宏"><a href="#6-创建IS-GT-A-B-宏" class="headerlink" title="6. 创建IS_GT(A, B)宏"></a>6. 创建IS_GT(A, B)宏</h2><p>现在尝试创建一个<code>IS_GT(A, B)</code>宏，当 A 比 B 大的时候为1， 否则为0。</p>
 <p>和<code>IS_EQ</code>相比只要稍微修改一下 IS_GT0_N 最后映射的值就实现了 IS_GT</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IS_GT(A, B)   _CONCAT(_IS_GT, A)(B)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _IS_GT0(B)    _CONCAT(_IS_GT0_, B)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _IS_GT0_SUB1   1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _IS_GT0_0   0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _IS_GT0_1   0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _IS_GT0_2   0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _IS_GT0_3   0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _IS_GT0_4   0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _IS_GT0_5   0</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _IS_GT1(B)    _IS_GT0(DEC(B))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _IS_GT2(B)    _IS_GT1(DEC(B))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _IS_GT3(B)    _IS_GT2(DEC(B))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _IS_GT4(B)    _IS_GT3(DEC(B))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _IS_GT5(B)    _IS_GT4(DEC(B))</span></span><br></pre></td></tr></table></figure>
-
 
     </div>
 
@@ -348,6 +314,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-前言"><span class="nav-number">1.</span> <span class="nav-text">1. 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-“-”和”-”的存在意义"><span class="nav-number">2.</span> <span class="nav-text">2. “#”和”##”的存在意义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-中间宏的使用"><span class="nav-number">3.</span> <span class="nav-text">3. 中间宏的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-宏的举例使用"><span class="nav-number">4.</span> <span class="nav-text">4. 宏的举例使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-例子的改进"><span class="nav-number">5.</span> <span class="nav-text">5. 例子的改进</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-创建IS-GT-A-B-宏"><span class="nav-number">6.</span> <span class="nav-text">6. 创建IS_GT(A, B)宏</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -361,12 +328,12 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

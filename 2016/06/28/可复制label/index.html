@@ -217,7 +217,6 @@
       
         <p>在iOS8 之后, 我们发现UILabel不在为我们提供长按弹出复制等操作了, 我们来继承UILabel自己写一个带复制功能的按钮</p>
 <a id="more"></a>
-
 <pre><code>//
 //  XLabel.m
 //  Zstoday
@@ -280,7 +279,8 @@
     [[UIMenuController sharedMenuController] setMenuItems:[NSArray arrayWithObjects:copyLink, nil]];
     [[UIMenuController sharedMenuController] setTargetRect:self.frame inView:self.superview];
     [[UIMenuController sharedMenuController] setMenuVisible:YES animated: YES];
-}</code></pre><p>@end</p>
+}
+</code></pre><p>@end</p>
 
     </div>
 
@@ -359,12 +359,12 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

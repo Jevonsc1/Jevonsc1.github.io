@@ -228,19 +228,18 @@
 <li>端口和socket通讯</li>
 </ul>
 <a id="more"></a>
-
 <p>Core Foundation框架和Foundation框架紧密相关，它们为相同功能提供接口，但Foundation框架提供Objective-C接口。如果您将Foundation对象和Core Foundation类型掺杂使用，则可利用两个框架之间的 <b>“toll-free bridging”</b>。所谓的Toll-free bridging是说您可以在某个框架的方法或函数同时使用Core Foundatio和Foundation 框架中的某些类型。很多数据类型支持这一特性，其中包括群体和字符串数据类型。每个框架的类和类型描述都会对某个对象是否为 toll-free bridged，应和什么对象桥接进行说明。</p>
-<br/>
-自 Xcode4.2 开始导入ARC机制后，为了支持对象间的转型，Apple又增加了许多转型用的关键字。这一讲我们就来了解其用法，以及产生的理由。
-
-<br/>
+<p><br/><br>自 Xcode4.2 开始导入ARC机制后，为了支持对象间的转型，Apple又增加了许多转型用的关键字。这一讲我们就来了解其用法，以及产生的理由。</p>
+<p><br/></p>
 <h4>引子</h4>
 
 <p>我们先来看一下ARC无效的时候，我们写id类型转void*类型的写法：</p>
 <pre><code>id obj = [[NSObject alloc] init];
-void *p = obj;</code></pre><p>反过来，当把void*对象变回id类型时，只是简单地如下来写，</p>
+void *p = obj;
+</code></pre><p>反过来，当把void*对象变回id类型时，只是简单地如下来写，</p>
 <pre><code>id obj = p;
-[obj release];</code></pre><p>但是上面的代码在ARC有效时，就有了下面的错误：</p>
+[obj release];
+</code></pre><p>但是上面的代码在ARC有效时，就有了下面的错误：</p>
 <pre><code>error: implicit conversion of an Objective-C pointer
     to ’void *’ is disallowed with ARC
     void *p = obj;
@@ -249,16 +248,15 @@ void *p = obj;</code></pre><p>反过来，当把void*对象变回id类型时，�
 error: implicit conversion of a non-Objective-C pointer
     type ’void *’ to ’id’ is disallowed with ARC
     id o = p;
-           ^        </code></pre><br/>
-__bridge
-=================
-为了解决这一问题，我们使用 __bridge 关键字来实现id类型与void*类型的相互转换。看下面的例子。
-
+           ^        
+</code></pre><p><br/></p>
+<h1 id="bridge"><a href="#bridge" class="headerlink" title="__bridge"></a>__bridge</h1><p>为了解决这一问题，我们使用 __bridge 关键字来实现id类型与void*类型的相互转换。看下面的例子。</p>
 <pre><code>id obj = [[NSObject alloc] init];
 
 void *p = (__bridge void *)obj;
 
-id o = (__bridge id)p;</code></pre><p>将Objective-C的对象类型用 _ _bridge 转换为 void* 类型和使用 _ _unsafe_unretained 关键字修饰的变量是一样的。被代入对象的所有者需要明确对象生命周期的管理，不要出现异常访问的问题。<br>除过 <strong>bridge 以外，还有两个 \</strong>bridge 相关的类型转换关键字：</p>
+id o = (__bridge id)p;
+</code></pre><p>将Objective-C的对象类型用 _ _bridge 转换为 void* 类型和使用 _ _unsafe_unretained 关键字修饰的变量是一样的。被代入对象的所有者需要明确对象生命周期的管理，不要出现异常访问的问题。<br>除过 <strong>bridge 以外，还有两个 \</strong>bridge 相关的类型转换关键字：</p>
 <ul>
 <li>__bridge_transfer</li>
 <li>__bridge_retained</li>
@@ -267,7 +265,8 @@ id o = (__bridge id)p;</code></pre><p>将Objective-C的对象类型用 _ _bridge
 <h1 id="bridge-retained"><a href="#bridge-retained" class="headerlink" title="__bridge_retained"></a>__bridge_retained</h1><p>先来看使用 __bridge_retained 关键字的例子程序：</p>
 <pre><code>id obj = [[NSObject alloc] init];
 
-void *p = (__bridge_retained void *)obj;</code></pre><p>从名字上我们应该能理解其意义：类型被转换时，其对象的所有权也将被变换后变量所持有。如果不是ARC代码，类似下面的实现：<br>id obj = [[NSObject alloc] init];</p>
+void *p = (__bridge_retained void *)obj;
+</code></pre><p>从名字上我们应该能理解其意义：类型被转换时，其对象的所有权也将被变换后变量所持有。如果不是ARC代码，类似下面的实现：<br>id obj = [[NSObject alloc] init];</p>
 <p>void *p = obj;<br>[(id)p retain];<br>可以用一个实际的例子验证，对象所有权是否被持有。</p>
 <pre><code>void *p = 0;
 
@@ -276,62 +275,68 @@ void *p = (__bridge_retained void *)obj;</code></pre><p>从名字上我们应该
     p = (__bridge_retained void *)obj;
 }
 
-NSLog(@&quot;class=%@&quot;, [(__bridge id)p class]);</code></pre><p>出了大括号的范围后，p 仍然指向一个有效的实体。说明他拥有该对象的所有权，该对象没有因为出其定义范围而被销毁。<br><br/><br/><br/><br/><br>__bridge_transfer<br>==================<br>相反，当想把本来拥有对象所有权的变量，在类型转换后，让其释放原先所有权的时候，需要使用 __bridge_transfer 关键字。文字有点绕口，我们还是来看一段代码吧。<br>如果ARC无效的时候，我们可能需要写下面的代码。</p>
+NSLog(@&quot;class=%@&quot;, [(__bridge id)p class]);
+</code></pre><p>出了大括号的范围后，p 仍然指向一个有效的实体。说明他拥有该对象的所有权，该对象没有因为出其定义范围而被销毁。<br><br/><br/><br/><br/></p>
+<h1 id="bridge-transfer"><a href="#bridge-transfer" class="headerlink" title="__bridge_transfer"></a>__bridge_transfer</h1><p>相反，当想把本来拥有对象所有权的变量，在类型转换后，让其释放原先所有权的时候，需要使用 __bridge_transfer 关键字。文字有点绕口，我们还是来看一段代码吧。<br>如果ARC无效的时候，我们可能需要写下面的代码。</p>
 <pre><code>// p 变量原先持有对象的所有权
 id obj = (id)p;
 [obj retain];
-[(id)p release];</code></pre><p>那么ARC有效后，我们可以用下面的代码来替换：</p>
+[(id)p release];
+</code></pre><p>那么ARC有效后，我们可以用下面的代码来替换：</p>
 <pre><code>// p 变量原先持有对象的所有权
-id obj = (__bridge_transfer id)p;</code></pre><p>可以看出来，_ _bridge_retained 是编译器替我们做了 retain 操作，而 _ _bridge_transfer 是替我们做了 release。<br><br/><br/><br/><br/><br>Toll-Free bridged<br>===============<br>在iOS世界，主要有两种对象：</p>
+id obj = (__bridge_transfer id)p;
+</code></pre><p>可以看出来，_ _bridge_retained 是编译器替我们做了 retain 操作，而 _ _bridge_transfer 是替我们做了 release。<br><br/><br/><br/><br/></p>
+<h1 id="Toll-Free-bridged"><a href="#Toll-Free-bridged" class="headerlink" title="Toll-Free bridged"></a>Toll-Free bridged</h1><p>在iOS世界，主要有两种对象：</p>
 <ul>
 <li>Objective-C 对象</li>
 <li>Core Foundation 对象</li>
 </ul>
 <p>Core Foundation 对象主要是有C语言实现的 Core Foundation Framework 的对象，其中也有对象引用计数的概念，只是不是 Cocoa Framework::Foundation Framework 的 retain/release，而是自身的 CFRetain/CFRelease 接口。<br>这两种对象间可以互相转换和操作，不使用ARC的时候，单纯的用C原因的类型转换，不需要消耗CPU的资源，所以叫做 Toll-Free bridged。比如 NSArray和CFArrayRef, NSString和CFStringRef，他们虽然属于不同的 Framework，但是具有相同的对象结构，所以可以用标准C的类型转换。<br>比如不使用ARC时，我们用下面的代码：</p>
 <pre><code>NSString* string=[NSStringstringWithFormat:...];
-CFStringRef cfString = (CFStringRef)string;</code></pre><p>同样，Core Foundation类型向Objective-C类型转换时，也是简单地用标准C的类型转换即可。<br>但是在ARC有效的情况下，将出现类似下面的编译错误：</p>
+CFStringRef cfString = (CFStringRef)string;
+</code></pre><p>同样，Core Foundation类型向Objective-C类型转换时，也是简单地用标准C的类型转换即可。<br>但是在ARC有效的情况下，将出现类似下面的编译错误：</p>
 <pre><code>Cast of Objective-C pointer type ‘NSString *’ to C pointer type ‘CFStringRef’ (aka ‘const struct __CFString *’) requires a bridged cast
 Use __bridge to convert directly (no change in ownership)
-Use __bridge_retained to make an ARC object available as a +1 ‘CFStringRef’ (aka ‘const struct __CFString *’)</code></pre><p>错误中已经提示了我们需要怎样做：用 _ <em>bridge 或者 _ _bridge_retained 来转型，其差别就是变更对象的所有权。<br>正因为Objective-C是ARC管理的对象，而Core Foundation不是ARC管理的对象，所以才要特意这样转换，这与id类型向void*转换是一个概念。也就是说，当这两种类型（有ARC管理，没有ARC管理）在转换时，需要告诉编译器怎样处理对象的所有权。<br>上面的例子，使用 _ _bridge/</em> _bridge_retained 后的代码如下：</p>
+Use __bridge_retained to make an ARC object available as a +1 ‘CFStringRef’ (aka ‘const struct __CFString *’)
+</code></pre><p>错误中已经提示了我们需要怎样做：用 _ _bridge 或者 _ _bridge_retained 来转型，其差别就是变更对象的所有权。<br>正因为Objective-C是ARC管理的对象，而Core Foundation不是ARC管理的对象，所以才要特意这样转换，这与id类型向void*转换是一个概念。也就是说，当这两种类型（有ARC管理，没有ARC管理）在转换时，需要告诉编译器怎样处理对象的所有权。<br>上面的例子，使用 _ _bridge/_ _bridge_retained 后的代码如下：</p>
 <pre><code>NSString *string = [NSString stringWithFormat:...];
-CFStringRef cfString = (__bridge CFStringRef)string;</code></pre><p>只是单纯地执行了类型转换，没有进行所有权的转移，也就是说，当string对象被释放的时候，cfString也不能被使用了。</p>
+CFStringRef cfString = (__bridge CFStringRef)string;
+</code></pre><p>只是单纯地执行了类型转换，没有进行所有权的转移，也就是说，当string对象被释放的时候，cfString也不能被使用了。</p>
 <pre><code>NSString *string = [NSString stringWithFormat:...];
 CFStringRef cfString = (__bridge_retained CFStringRef)string;
 ...
-CFRelease(cfString); // 由于Core Foundation的对象不属于ARC的管理范畴，所以需要自己release</code></pre><p>使用 _ _bridge_retained 可以通过转换目标处（cfString）的 retain 处理，来使所有权转移。即使 string 变量被释放，cfString 还是可以使用具体的对象。只是有一点，由于Core Foundation的对象不属于ARC的管理范畴，所以需要自己release。<br>实际上，Core Foundation 内部，为了实现Core Foundation对象类型与Objective-C对象类型的相互转换，提供了下面的函数。</p>
+CFRelease(cfString); // 由于Core Foundation的对象不属于ARC的管理范畴，所以需要自己release
+</code></pre><p>使用 _ _bridge_retained 可以通过转换目标处（cfString）的 retain 处理，来使所有权转移。即使 string 变量被释放，cfString 还是可以使用具体的对象。只是有一点，由于Core Foundation的对象不属于ARC的管理范畴，所以需要自己release。<br>实际上，Core Foundation 内部，为了实现Core Foundation对象类型与Objective-C对象类型的相互转换，提供了下面的函数。</p>
 <pre><code>CFTypeRef  CFBridgingRetain(id  X)  {
         return  (__bridge_retained  CFTypeRef)X;
 }
 
 id  CFBridgingRelease(CFTypeRef  X)  {
         return  (__bridge_transfer  id)X;
-}</code></pre><p>所以，可以用 CFBridgingRetain 替代 _ _bridge_retained 关键字：</p>
+}
+</code></pre><p>所以，可以用 CFBridgingRetain 替代 _ _bridge_retained 关键字：</p>
 <pre><code>NSString *string = [NSString stringWithFormat:...];
 CFStringRef cfString = CFBridgingRetain(string);
 ...
-CFRelease(cfString); // 由于Core Foundation不在ARC管理范围内，所以需要主动release。</code></pre><p><br/><br/><br/><br/><br>__bridge_transfer<br>============<br>所有权被转移的同时，被转换变量将失去对象的所有权。当Core Foundation对象类型向Objective-C对象类型转换的时候，会经常用到 _ _bridge_transfer 关键字。</p>
+CFRelease(cfString); // 由于Core Foundation不在ARC管理范围内，所以需要主动release。
+</code></pre><p><br/><br/><br/><br/></p>
+<h1 id="bridge-transfer-1"><a href="#bridge-transfer-1" class="headerlink" title="__bridge_transfer"></a>__bridge_transfer</h1><p>所有权被转移的同时，被转换变量将失去对象的所有权。当Core Foundation对象类型向Objective-C对象类型转换的时候，会经常用到 _ _bridge_transfer 关键字。</p>
 <pre><code>CFStringRef cfString = CFStringCreate...();
 NSString *string = (__bridge_transfer NSString *)cfString;
 
-// CFRelease(cfString); 因为已经用 _ _bridge_transfer 转移了对象的所有权，所以不需要调用 release</code></pre><p>同样，我们可以使用 CFBridgingRelease() 来代替 __bridge_transfer 关键字。<br>CFStringRef cfString = CFStringCreate…();<br>NSString *string = CFBridgingRelease(cfString);<br><br/><br/><br/><br/><br>总结<br>==========<br>由上面的学习我们了解到 ARC 中类型转换的用法，那么我们实际使用中按照怎样的原则或者方法来区分使用呢，下面我总结了几点关键要素。</p>
+// CFRelease(cfString); 因为已经用 _ _bridge_transfer 转移了对象的所有权，所以不需要调用 release
+</code></pre><p>同样，我们可以使用 CFBridgingRelease() 来代替 __bridge_transfer 关键字。<br>CFStringRef cfString = CFStringCreate…();<br>NSString *string = CFBridgingRelease(cfString);<br><br/><br/><br/><br/></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>由上面的学习我们了解到 ARC 中类型转换的用法，那么我们实际使用中按照怎样的原则或者方法来区分使用呢，下面我总结了几点关键要素。</p>
 <blockquote>
 <ul>
-<li>明确被转换类型是否是 ARC 管理的对象</li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li>Core Foundation 对象类型不在 ARC 管理范畴内</li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li>Cocoa Framework::Foundation 对象类型（即一般使用到的Objectie-C对象类型）在 ARC 的管理范畴内</li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li>如果不在 ARC 管理范畴内的对象，那么要清楚 release 的责任应该是谁</li>
+<li><p>明确被转换类型是否是 ARC 管理的对象</p>
+</li>
+<li><p>Core Foundation 对象类型不在 ARC 管理范畴内</p>
+</li>
+<li><p>Cocoa Framework::Foundation 对象类型（即一般使用到的Objectie-C对象类型）在 ARC 的管理范畴内</p>
+</li>
+<li><p>如果不在 ARC 管理范畴内的对象，那么要清楚 release 的责任应该是谁</p>
+</li>
 <li>各种对象的生命周期是怎样的</li>
 </ul>
 </blockquote>
@@ -401,7 +406,7 @@ NSString *string = (__bridge_transfer NSString *)cfString;
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Core-Foundation-框架"><span class="nav-number">1.</span> <span class="nav-text">Core Foundation 框架</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#null"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">引子</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bridge-retained"><span class="nav-number">2.</span> <span class="nav-text">__bridge_retained</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Core-Foundation-框架"><span class="nav-number">1.</span> <span class="nav-text">Core Foundation 框架</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#null"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">引子</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bridge"><span class="nav-number">2.</span> <span class="nav-text">__bridge</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bridge-retained"><span class="nav-number">3.</span> <span class="nav-text">__bridge_retained</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bridge-transfer"><span class="nav-number">4.</span> <span class="nav-text">__bridge_transfer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Toll-Free-bridged"><span class="nav-number">5.</span> <span class="nav-text">Toll-Free bridged</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bridge-transfer-1"><span class="nav-number">6.</span> <span class="nav-text">__bridge_transfer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -415,12 +420,12 @@ NSString *string = (__bridge_transfer NSString *)cfString;
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
