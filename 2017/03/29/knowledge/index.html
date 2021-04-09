@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="越学越执着" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="信息学知识点目录字符串  字典树，trie树 ac自动机 kmp 后缀数组 后缀树 有限状态自动机 哈夫曼 简单密码学">
+<meta name="keywords" content="-日常">
+<meta property="og:type" content="article">
+<meta property="og:title" content="knowledge">
+<meta property="og:url" content="http:&#x2F;&#x2F;jevonsc1.github.io&#x2F;2017&#x2F;03&#x2F;29&#x2F;knowledge&#x2F;index.html">
+<meta property="og:site_name" content="越学越执着">
+<meta property="og:description" content="信息学知识点目录字符串  字典树，trie树 ac自动机 kmp 后缀数组 后缀树 有限状态自动机 哈夫曼 简单密码学">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-11-07T13:16:16.000Z">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://jevonsc1.github.io/2017/03/29/knowledge/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>knowledge | 越学越执着</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">越学越执着</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">//Fly The Best</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://jevonsc1.github.io/2017/03/29/knowledge/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jevons">
+      <meta itemprop="description" content="Welcome">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="越学越执着">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          knowledge
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-03-29 11:04:57" itemprop="dateCreated datePublished" datetime="2017-03-29T11:04:57+08:00">2017-03-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-07 21:16:16" itemprop="dateModified" datetime="2019-11-07T21:16:16+08:00">2019-11-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="信息学知识点目录"><a href="#信息学知识点目录" class="headerlink" title="信息学知识点目录"></a>信息学知识点目录</h1><p><code>字符串</code></p>
+<ol>
+<li>字典树，trie树</li>
+<li>ac自动机</li>
+<li>kmp</li>
+<li>后缀数组</li>
+<li>后缀树</li>
+<li>有限状态自动机</li>
+<li>哈夫曼</li>
+<li>简单密码学<a id="more"></a>
+</li>
+</ol>
+<hr>
+<p><code>动态规划</code></p>
+<ol>
+<li>动态规划初步</li>
+<li>背包</li>
+<li>环形动规（环形dp）</li>
+<li>数位动规（数位dp）</li>
+<li>多位状态</li>
+<li>区间动规（区间dp）</li>
+<li>子母树</li>
+<li>动态规划优化<ul>
+<li>单调队列</li>
+<li>降低维度</li>
+<li>优化队列</li>
+<li>矩阵加速，矩阵优化</li>
+<li>斜率优化</li>
+<li>状态压缩</li>
+<li>凸完全单调性</li>
+<li>四边形不等式    </li>
+</ul>
+</li>
+<li>树形动规（树形dp）</li>
+</ol>
+<hr>
+<p><code>搜索</code></p>
+<ol>
+<li>广度优先搜索，bfs</li>
+<li>深度优先搜索，dfs</li>
+<li>剪枝</li>
+<li>记忆化搜索</li>
+<li>启发式搜索<ul>
+<li>启发式迭代加深，ida</li>
+<li>dancing links</li>
+<li>爬山法</li>
+<li>模拟退火</li>
+<li>遗传</li>
+<li>A＊算法</li>
+</ul>
+</li>
+<li>迭代加深</li>
+<li>随机调整</li>
+</ol>
+<hr>
+<p><code>数论，数学</code></p>
+<ol>
+<li>整数研究<ul>
+<li>素数判断</li>
+<li>最大公约数，gcd</li>
+<li>扩展欧几里得</li>
+<li>不定方程</li>
+<li>进制</li>
+<li>同余，中国剩余定理</li>
+<li>莫比乌斯反演</li>
+<li>逆元    </li>
+</ul>
+</li>
+<li>集合论</li>
+<li>群论<ul>
+<li>置换</li>
+<li>polya原理</li>
+</ul>
+</li>
+<li>组合数学<ul>
+<li>排列组合</li>
+<li>二项式定理</li>
+<li>康托展开</li>
+<li>袋与球问题</li>
+<li>鸽笼</li>
+<li>容斥</li>
+<li>斐波拉契，fibonacci</li>
+<li>卡特兰，catalan</li>
+<li>stirling</li>
+<li>生成函数</li>
+</ul>
+</li>
+<li>线性规划</li>
+<li>概率论，统计<ul>
+<li>众数</li>
+<li>简单概率</li>
+<li>条件概率</li>
+<li>bayes</li>
+<li>期望</li>
+</ul>
+</li>
+<li>线性代数<ul>
+<li>矩阵运算</li>
+<li>矩阵乘法</li>
+<li>线性递推，递推式</li>
+<li>高斯消元</li>
+<li>异或方程组</li>
+<li>线性基</li>
+</ul>
+</li>
+<li>微积分初步<ul>
+<li>极限</li>
+<li>导数</li>
+<li>积分</li>
+<li>定积分</li>
+<li>立体解析几何</li>
+<li>级数</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p><code>图论</code></p>
+<ol>
+<li>图的建立<ul>
+<li>邻接矩阵</li>
+<li>邻接表</li>
+</ul>
+</li>
+<li>图遍历</li>
+<li>拓扑排序<ul>
+<li>aov</li>
+<li>aoe</li>
+</ul>
+</li>
+<li>最短路<ul>
+<li>floyd</li>
+<li>dijstra</li>
+<li>bellman-ford</li>
+<li>spfa</li>
+<li>k短路</li>
+<li>差分约束</li>
+</ul>
+</li>
+<li>生成树<ul>
+<li>prim</li>
+<li>kruskal</li>
+<li>生成树的另类算法</li>
+<li>次小生成树</li>
+<li>特殊生成树</li>
+</ul>
+</li>
+<li><p>圈与块</p>
+<ul>
+<li>最小环</li>
+<li>负权环</li>
+<li>连通块</li>
+<li>2-sat</li>
+<li>欧拉公式</li>
+<li>四色定理</li>
+<li>欧拉回路</li>
+</ul>
+</li>
+<li><p>强连通分量，缩点</p>
+<ul>
+<li>tarjan</li>
+<li>割点</li>
+</ul>
+</li>
+<li><p>仙人掌</p>
+</li>
+</ol>
+<hr>
+<p><code>计算几何</code></p>
+<ol>
+<li>凸包</li>
+<li>叉积</li>
+<li>线段相交</li>
+<li>点积</li>
+<li>半平面相交</li>
+<li>最近点对</li>
+<li>凸多边形的交</li>
+<li>离散化扫描</li>
+<li>旋转卡壳</li>
+</ol>
+<hr>
+<p><code>树形结构</code></p>
+<ol>
+<li>线段树<ul>
+<li>二维线段树</li>
+<li>矩阵树</li>
+<li>zkw线段树</li>
+<li>主席树</li>
+</ul>
+</li>
+<li>平衡树<ul>
+<li>AVL</li>
+<li>Treap</li>
+<li>SBT</li>
+<li>Splay</li>
+<li>静态排序树</li>
+<li>替罪羊树</li>
+</ul>
+</li>
+<li>二叉堆<ul>
+<li>左偏树</li>
+<li>斜堆</li>
+<li>二项堆</li>
+</ul>
+</li>
+<li>树状数组</li>
+<li>树上距离<ul>
+<li>节点到根的距离</li>
+<li>最近公共祖先，lca</li>
+<li>节点间的距离</li>
+<li>树的直径    </li>
+</ul>
+</li>
+<li>动态树<ul>
+<li>树链割分</li>
+<li>link－cut tree（lct）</li>
+</ul>
+</li>
+<li>树的应用<ul>
+<li>并查集</li>
+<li>树的遍历</li>
+<li>哈夫曼树</li>
+<li>RMQ</li>
+<li>树套树</li>
+<li>可持久化</li>
+<li>虚树</li>
+</ul>
+</li>
+<li>环套树</li>
+</ol>
+<hr>
+<p><code>线性结构</code></p>
+<ol>
+<li>莫队</li>
+<li>前缀和</li>
+<li>基本数组</li>
+<li>向量</li>
+<li>栈</li>
+<li>队列</li>
+<li>块状链表，块状数组</li>
+<li>st表，稀疏表</li>
+</ol>
+<hr>
+<p><code>网络流</code></p>
+<ol>
+<li>最大流<ul>
+<li>Dinic</li>
+<li>Sap</li>
+<li>有上下界的最大流</li>
+</ul>
+</li>
+<li>最小割<ul>
+<li>闭合图</li>
+<li>最小点权覆盖集</li>
+<li>最大点权独立集</li>
+<li>分数规划</li>
+<li>最大密度子图</li>
+</ul>
+</li>
+<li>费用流<ul>
+<li>最短路增广费用流</li>
+<li>zkw费用流</li>
+<li>最小费用可行流</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p><code>基础算法</code></p>
+<ol>
+<li>模拟</li>
+<li>贪心</li>
+<li>递推</li>
+<li>递归</li>
+<li>枚举，暴力</li>
+<li>分治</li>
+</ol>
+<hr>
+<p><code>排序</code></p>
+<ol>
+<li>冒泡排序</li>
+<li>选择排序</li>
+<li>桶排</li>
+<li>插入排序</li>
+<li>归并排序</li>
+<li>快速排序</li>
+<li>堆排序</li>
+<li>希尔排序</li>
+<li>外部</li>
+</ol>
+<hr>
+<p><code>查找算法</code></p>
+<ol>
+<li>二分答案</li>
+<li>顺序查找</li>
+<li>二分查找</li>
+</ol>
+<hr>
+<p><code>二分图</code></p>
+<ol>
+<li>最大匹配    <ul>
+<li>匈牙利算法</li>
+<li>一般图的最大匹配</li>
+<li>konig定理    </li>
+</ul>
+</li>
+<li>带权二分图匹配</li>
+<li>稳定婚姻系统</li>
+</ol>
+<hr>
+<p><code>其他技巧</code></p>
+<ol>
+<li>高精</li>
+<li>博弈论<ul>
+<li>nim游戏</li>
+<li>博弈树</li>
+<li>shannon开关游戏</li>
+</ul>
+</li>
+<li>倍增</li>
+<li>离散化</li>
+<li>哈希<ul>
+<li>ELFHash</li>
+<li>SDBM</li>
+<li>BKDR</li>
+</ul>
+</li>
+<li>随即贪心</li>
+<li>快速傅立叶变换</li>
+<li>位运算</li>
+<li>骗分</li>
+<li>np问题</li>
+<li>构造</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag"># -日常</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2017/03/17/create-oop-by-c/" rel="next" title="从零实现oop">
+                  <i class="fa fa-chevron-left"></i> 从零实现oop
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2017/03/30/oop2/" rel="prev" title="OOP的补充">
+                  OOP的补充 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#信息学知识点目录"><span class="nav-number">1.</span> <span class="nav-text">信息学知识点目录</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Jevons</p>
+  <div class="site-description" itemprop="description">Welcome</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jevons</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
