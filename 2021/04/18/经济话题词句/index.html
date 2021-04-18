@@ -46,17 +46,18 @@
   };
 </script>
 
-  <meta name="description" content="Block的声明和线程安全Block属性的声明，首先需要用copy修饰符，因为只有copy后的Block才会在堆中，栈中的Block的生命周期是和栈绑定的。">
+  <meta name="description" content="Unit 1 经济发展economist “Short-termism” or the desire for quick profits, has worsened in publicly traded companies, says the Bank of England’s top economist. acro economy Some economist are more concerne">
+<meta name="keywords" content="考研">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Block基本使用">
-<meta property="og:url" content="http:&#x2F;&#x2F;jevonsc1.github.io&#x2F;2016&#x2F;05&#x2F;17&#x2F;Block%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8&#x2F;index.html">
+<meta property="og:title" content="经济话题词句">
+<meta property="og:url" content="http:&#x2F;&#x2F;jevonsc1.github.io&#x2F;2021&#x2F;04&#x2F;18&#x2F;%E7%BB%8F%E6%B5%8E%E8%AF%9D%E9%A2%98%E8%AF%8D%E5%8F%A5&#x2F;index.html">
 <meta property="og:site_name" content="越学越执着">
-<meta property="og:description" content="Block的声明和线程安全Block属性的声明，首先需要用copy修饰符，因为只有copy后的Block才会在堆中，栈中的Block的生命周期是和栈绑定的。">
+<meta property="og:description" content="Unit 1 经济发展economist “Short-termism” or the desire for quick profits, has worsened in publicly traded companies, says the Bank of England’s top economist. acro economy Some economist are more concerne">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-07T13:16:16.000Z">
+<meta property="og:updated_time" content="2021-04-18T14:42:09.666Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://jevonsc1.github.io/2016/05/17/Block%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
+<link rel="canonical" href="http://jevonsc1.github.io/2021/04/18/%E7%BB%8F%E6%B5%8E%E8%AF%9D%E9%A2%98%E8%AF%8D%E5%8F%A5/">
 
 
 <script id="page-configurations">
@@ -70,7 +71,7 @@
   };
 </script>
 
-  <title>Block基本使用 | 越学越执着</title>
+  <title>经济话题词句 | 越学越执着</title>
   
 
 
@@ -170,7 +171,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="http://jevonsc1.github.io/2016/05/17/Block%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
+    <link itemprop="mainEntityOfPage" href="http://jevonsc1.github.io/2021/04/18/%E7%BB%8F%E6%B5%8E%E8%AF%9D%E9%A2%98%E8%AF%8D%E5%8F%A5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -183,7 +184,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Block基本使用
+          经济话题词句
         </h1>
 
         <div class="post-meta">
@@ -192,16 +193,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2016-05-17 16:19:27" itemprop="dateCreated datePublished" datetime="2016-05-17T16:19:27+08:00">2016-05-17</time>
+              <time title="Created: 2021-04-18 17:06:39 / Modified: 22:42:09" itemprop="dateCreated datePublished" datetime="2021-04-18T17:06:39+08:00">2021-04-18</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-11-07 21:16:16" itemprop="dateModified" datetime="2019-11-07T21:16:16+08:00">2019-11-07</time>
-              </span>
 
           
 
@@ -214,54 +209,97 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Block的声明和线程安全"><a href="#Block的声明和线程安全" class="headerlink" title="Block的声明和线程安全"></a>Block的声明和线程安全</h2><p>Block属性的声明，首先需要用copy修饰符，因为只有copy后的Block才会在堆中，栈中的Block的生命周期是和栈绑定的。<br><a id="more"></a><br>另一个需要注意的问题是关于线程安全，在声明Block属性时需要确认“在调用Block时另一个线程有没有可能去修改Block？”这个问题，如果确定不会有这种情况发生的话，那么Block属性声明可以用nonatomic。如果不肯定的话（通常情况是这样的），那么你首先需要声明Block属性为atomic，也就是先保证变量的原子性（Objective-C并没有强制规定指针读写的原子性，C#有）。</p>
-<p>比如这样一个Block类型：</p>
-<pre><code>typedef void (^MyBlockType)(int);
-</code></pre><p>属性声明：</p>
-<pre><code>@property (copy) MyBlockType myBlock;
-</code></pre><p>这里ARC和非ARC声明都是一样的，当然注意在非ARC下要release Block。</p>
-<p>但是，有了atomic来保证基本的原子性还是没有达到线程安全的，接着在调用时需要把Block先赋值给本地变量，以防止Block突然改变。因为如果不这样的话，即便是先判断了Block属性不为空，在调用之前，一旦另一个线程把Block属性设空了，程序就会crash，如下代码：</p>
-<pre><code>if (self.myBlock)
-{
-    //此时，走到这里，self.myBlock可能被另一个线程改为空，造成crash
-    //注意：atomic只会确保myBlock的原子性，这种操作本身还是非线程安全的
-    self.myBlock(123);
-}
-</code></pre><p>所以正确的代码是（ARC）：</p>
-<pre><code>MyBlockType block = self.myBlock;
-//block现在是本地不可变的
-if (block)
-{
-    block(123);
-}
-</code></pre><p>在非ARC下则需要手动retain一下，否则如果属性被置空，本地变量就成了野指针了，如下代码：</p>
-<p>//非ARC</p>
-<pre><code>MyBlockType block = [self.myBlock retain];
-if (block)
-{
-        block(123);
-}
-[block release];
-</code></pre><p><br/></p>
-<h2 id="循环引用问题"><a href="#循环引用问题" class="headerlink" title=" 循环引用问题"></a> 循环引用问题</h2><p>循环引用是另一个使用Block时常见的问题。</p>
-<p>在ARC下，由于_ _block抓取的变量一样会被Block retain，所以必须用弱引用才可以解决循环引用问题，iOS 5之后可以直接使用  _ _weak，之前则只能使用 _ _unsafe_unretained了， _ _unsafe_unretained缺点是指针释放后自己不会置空。示例代码：</p>
-<pre><code>//iOS 5之前可以用__unsafe_unretained
-//__unsafe_unretained typeof(self) weakSelf = self;
-__weak typeof(self) weakSelf = self;
-self.myBlock = ^(int paramInt)
-{
-    //使用weakSelf访问self成员
-    [weakSelf anotherFunc];
-};
-</code></pre><p>在非ARC下，显然无法使用弱引用，这里就可以直接使用__block来修饰变量，它不会被Block所retain的，参考代码：</p>
-<p>//非ARC</p>
-<pre><code>__block typeof(self) weakSelf = self;
-self.myBlock = ^(int paramInt)
-{
-//使用weakSelf访问self成员
-    [weakSelf anotherFunc];
-};
-</code></pre>
+        <h4 id="Unit-1-经济发展"><a href="#Unit-1-经济发展" class="headerlink" title="Unit 1 经济发展"></a>Unit 1 经济发展</h4><p>economist</p>
+<p>“Short-termism” or the desire for quick profits, has worsened in publicly traded companies, says the Bank of England’s top economist.</p>
+<p>acro economy</p>
+<p>Some economist are more concerned with the state of macro economy operation.</p>
+<p>protectionism</p>
+<p>The current task is tp promote free trade and to avert the threat of increasing protectionism.</p>
+<p>rate</p>
+<p>Figures published today show another fall in the rate of inflation.</p>
+<p>depression</p>
+<p>He never forgot the hardships he witnessed during the Great Depression of the 1930s.</p>
+<p>stagnation</p>
+<p>Poor economic policies led to a long period of stagnation and decline.</p>
+<p>urchasing power</p>
+<p>Wage rated must be maintained in order to maintain the purchasing power of the consumer.</p>
+<h4 id="Unit-2-经济状况"><a href="#Unit-2-经济状况" class="headerlink" title="Unit 2 经济状况"></a>Unit 2 经济状况</h4><p>economy</p>
+<p>In advanced countries, logistics play an important role in national  economy.</p>
+<p>boom</p>
+<p>The  tourism industry has been booming there years.</p>
+<p>recession</p>
+<p>In time of severe recession, companies are often forced to make massive job cuts in order to survive.</p>
+<p>revive</p>
+<p>The newly adopted financial policy revived the national economy.</p>
+<p>prosper</p>
+<p>Our great motherland is prospering with each passing day.</p>
+<p>crisis</p>
+<p>More than 20 million rural migrant workers in China have lost their jobs and returned to their home villages or towns as a result of global economic crisis.</p>
+<p>finance</p>
+<p>State finance has also entered on a new stage.</p>
+<p>inflation</p>
+<p>Specialists see various reasons for the recent surge in inflation.</p>
+<p>fluctuation</p>
+<p>A firm secures a needed commodity and is protected against price flutuation.</p>
+<p>deficit</p>
+<p>They’re ready to cut the federal budget deficit for the next fisal year.</p>
+<p>address</p>
+<p>I was addressing a small gathering in suburban Virginia living room - a women’s group that had invited men to join them.</p>
+<p>This rule is meant to address the difficulty that students from impoverished or chaotic homes might have in completing their homework.</p>
+<h4 id="Unit-3-推动市场"><a href="#Unit-3-推动市场" class="headerlink" title="Unit 3 推动市场"></a>Unit 3 推动市场</h4><p>enact</p>
+<p>The king could not enact laws without the sanction of Parliament.</p>
+<p>policy</p>
+<p>The most common complaint centres on foreign policy.</p>
+<p>dispose</p>
+<p>The world produces much more garbage than it can dispose of.</p>
+<p>enhance</p>
+<p>Passing the examination should enhance your chance of getting a job.</p>
+<p>acclerate</p>
+<p>Sometimes both fertilizer and manure will accelerate the growth of plants, but sometimes they won’t.</p>
+<p>market</p>
+<p>Farmers go to the market to buy and sell vegetables.</p>
+<p>collective</p>
+<p>The country’s politicians are already heaving a collective sigh of relief.</p>
+<p>compensate</p>
+<p>If a tax motivates firms to trim health benefits, they should increase salaries to compensate.</p>
+<p>abundance</p>
+<p>In this land, crops grow in abundance all the time.</p>
+<h4 id="Unit-4-商业模式"><a href="#Unit-4-商业模式" class="headerlink" title="Unit 4 商业模式"></a>Unit 4 商业模式</h4><p>business</p>
+<p>With $3.15 billion being lost on Internet wagers this year, gambling has passed porngraphy as the Web’s most profitable business.</p>
+<p>commerce</p>
+<p>Two grocery shop and the general store are the sum total of local commerce.</p>
+<p>consume</p>
+<p>They don’t make countryside anymore , and every yeay concrete comsumes more of it.</p>
+<p>corporate</p>
+<p>The range of the scene is broadened to incorporate past, present and future.</p>
+<p>reputation</p>
+<p>She is a scienist of international reputation.</p>
+<p>malpratice</p>
+<p>defame</p>
+<p>we expect politicians to defame each other in an election year.</p>
+<p>affair</p>
+<p>He claims he was made the fall guy for the affair.</p>
+<p>matter</p>
+<p>That matter bacause theory suggests that the maximum sustainable yield that can be cropped from a fishery comes when the biomass of a target species is about 50% of its original level.</p>
+<h4 id="Unit-5-劳动力匮乏"><a href="#Unit-5-劳动力匮乏" class="headerlink" title="Unit 5 劳动力匮乏"></a>Unit 5 劳动力匮乏</h4><p>annual</p>
+<p>A town of culture award could, it is argued, become an annual event, attracting funding and creating jobs.</p>
+<p>complain</p>
+<p>He who make constant complain gets little compassion.</p>
+<p>shortage</p>
+<p>Any shortage could push up grain price.</p>
+<p>documentary</p>
+<p>Morgan is also working on a documentary on the death of Monroe.</p>
+<p>settle</p>
+<p>Sexual confusion, economic frustrations, and religious hope — all came together in a decisive moment when he opened the Bible, told his father the first line he saw would settle his fate.</p>
+<p>request</p>
+<p>Mr. Dennis said he had request  access to a telephone.</p>
+<p>numerical</p>
+<p>Nowadays, the numerical skills of children develop very early.</p>
+<p>admit</p>
+<p>Researchers admin that they study does not answer the question at how much business ought to spend on CSR.</p>
+<p>import</p>
+<p>The police caught a young man trying to import a huge quantity of cars.</p>
+
     </div>
 
     
@@ -269,22 +307,22 @@ self.myBlock = ^(int paramInt)
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%80%83%E7%A0%94/" rel="tag"># 考研</a>
+          </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/2016/05/17/iOS%E7%9A%84%E5%A0%86%E5%92%8C%E6%A0%88/" rel="next" title="iOS的堆和栈">
-                  <i class="fa fa-chevron-left"></i> iOS的堆和栈
+                <a href="/2021/04/15/L-Hopital%E6%B3%95%E5%88%99%E8%AF%81%E6%98%8E/" rel="next" title="L'Hôpital法则证明">
+                  <i class="fa fa-chevron-left"></i> L'Hôpital法则证明
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2016/05/18/%E5%85%83%E4%BB%B6%E5%AD%97%E5%85%B8/" rel="prev" title="元件字典">
-                  元件字典 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
       </footer>
@@ -323,7 +361,7 @@ self.myBlock = ^(int paramInt)
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Block的声明和线程安全"><span class="nav-number">1.</span> <span class="nav-text">Block的声明和线程安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环引用问题"><span class="nav-number">2.</span> <span class="nav-text"> 循环引用问题</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Unit-1-经济发展"><span class="nav-number">1.</span> <span class="nav-text">Unit 1 经济发展</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Unit-2-经济状况"><span class="nav-number">2.</span> <span class="nav-text">Unit 2 经济状况</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Unit-3-推动市场"><span class="nav-number">3.</span> <span class="nav-text">Unit 3 推动市场</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Unit-4-商业模式"><span class="nav-number">4.</span> <span class="nav-text">Unit 4 商业模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Unit-5-劳动力匮乏"><span class="nav-number">5.</span> <span class="nav-text">Unit 5 劳动力匮乏</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
