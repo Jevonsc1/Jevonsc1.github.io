@@ -46,18 +46,18 @@
   };
 </script>
 
-  <meta name="description" content="最近在复习线性代数，本以为一些我已经彻底明白的事情，在重新学习的过程中，还是会遇到一些新的疑问，比如向量叉乘的意义。众所周知，向量之间的运算有点乘和叉乘（Cross Product，向量积、外积），其中点乘是比较简单的，而且很容易推广到高维；但是叉乘不同，在不同维度上的意义不相同，推广的过程也比较曲折。 先说结论：  二维叉乘和三维叉乘（及高维叉乘）无论从计算方式还是几何意义上都完全不一样，根本上">
+  <meta name="description" content="最近在复习线性代数，本以为一些我已经彻底明白的事情，在重新学习的过程中，还是会遇到一些新的疑问，比如向量叉乘的意义。众所周知，向量之间的运算有点乘和叉乘（Cross Product，向量积、外积），其中点乘是比较简单的，而且很容易推广到高维；但是叉乘不同，在不同维度上的意义不相同，推广的过程也比较曲折。">
 <meta name="keywords" content="数学">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于向量叉乘意义的思考">
 <meta property="og:url" content="http:&#x2F;&#x2F;jevonsc1.github.io&#x2F;2019&#x2F;11&#x2F;27&#x2F;%E5%85%B3%E4%BA%8E%E5%90%91%E9%87%8F%E5%8F%89%E4%B9%98%E6%84%8F%E4%B9%89%E7%9A%84%E6%80%9D%E8%80%83&#x2F;index.html">
 <meta property="og:site_name" content="越学越执着">
-<meta property="og:description" content="最近在复习线性代数，本以为一些我已经彻底明白的事情，在重新学习的过程中，还是会遇到一些新的疑问，比如向量叉乘的意义。众所周知，向量之间的运算有点乘和叉乘（Cross Product，向量积、外积），其中点乘是比较简单的，而且很容易推广到高维；但是叉乘不同，在不同维度上的意义不相同，推广的过程也比较曲折。 先说结论：  二维叉乘和三维叉乘（及高维叉乘）无论从计算方式还是几何意义上都完全不一样，根本上">
+<meta property="og:description" content="最近在复习线性代数，本以为一些我已经彻底明白的事情，在重新学习的过程中，还是会遇到一些新的疑问，比如向量叉乘的意义。众所周知，向量之间的运算有点乘和叉乘（Cross Product，向量积、外积），其中点乘是比较简单的，而且很容易推广到高维；但是叉乘不同，在不同维度上的意义不相同，推广的过程也比较曲折。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http:&#x2F;&#x2F;examination1.oss-cn-shenzhen.aliyuncs.com&#x2F;%E6%88%AA%E5%B1%8F2019-11-27%E4%B8%8A%E5%8D%8810.51.34.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;examination1.oss-cn-shenzhen.aliyuncs.com&#x2F;%E6%88%AA%E5%B1%8F2019-11-27%E4%B8%8A%E5%8D%8810.50.44.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;examination1.oss-cn-shenzhen.aliyuncs.com&#x2F;%E6%88%AA%E5%B1%8F2019-11-27%E4%B8%8A%E5%8D%8811.45.09.png">
-<meta property="og:updated_time" content="2019-11-27T05:11:23.796Z">
+<meta property="og:updated_time" content="2021-04-19T03:47:16.653Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;examination1.oss-cn-shenzhen.aliyuncs.com&#x2F;%E6%88%AA%E5%B1%8F2019-11-27%E4%B8%8A%E5%8D%8810.51.34.png">
 
@@ -197,10 +197,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2019-11-27 10:31:58 / Modified: 13:11:23" itemprop="dateCreated datePublished" datetime="2019-11-27T10:31:58+08:00">2019-11-27</time>
+              <time title="Created: 2019-11-27 10:31:58" itemprop="dateCreated datePublished" datetime="2019-11-27T10:31:58+08:00">2019-11-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-19 11:47:16" itemprop="dateModified" datetime="2021-04-19T11:47:16+08:00">2021-04-19</time>
+              </span>
 
           
 
@@ -214,6 +220,7 @@
 
       
         <p>最近在复习线性代数，本以为一些我已经彻底明白的事情，在重新学习的过程中，还是会遇到一些新的疑问，比如向量叉乘的意义。众所周知，向量之间的运算有点乘和叉乘（Cross Product，向量积、外积），其中点乘是比较简单的，而且很容易推广到高维；但是叉乘不同，在不同维度上的意义不相同，推广的过程也比较曲折。</p>
+<a id="more"></a>
 <p>先说结论：</p>
 <ul>
 <li>二维叉乘和三维叉乘（及高维叉乘）无论从计算方式还是几何意义上都完全不一样，根本上不是同一类运算，只是都依赖行列式，并且在维度上具有齐次性，因此都叫叉乘。</li>
