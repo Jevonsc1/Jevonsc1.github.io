@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="越学越执着" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零实现oop">
+<meta property="og:url" content="http:&#x2F;&#x2F;jevonsc1.github.io&#x2F;2017&#x2F;03&#x2F;17&#x2F;create-oop-by-c&#x2F;index.html">
+<meta property="og:site_name" content="越学越执着">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http:&#x2F;&#x2F;jevonsc1.github.io&#x2F;images&#x2F;ow_baolei.jpeg">
+<meta property="og:updated_time" content="2019-11-07T13:16:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;jevonsc1.github.io&#x2F;images&#x2F;ow_baolei.jpeg">
+
+<link rel="canonical" href="http://jevonsc1.github.io/2017/03/17/create-oop-by-c/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>从零实现oop | 越学越执着</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">越学越执着</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">//Fly The Best</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://jevonsc1.github.io/2017/03/17/create-oop-by-c/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jevons">
+      <meta itemprop="description" content="Welcome">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="越学越执着">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          从零实现oop
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-03-17 09:22:24" itemprop="dateCreated datePublished" datetime="2017-03-17T09:22:24+08:00">2017-03-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-07 21:16:16" itemprop="dateModified" datetime="2019-11-07T21:16:16+08:00">2019-11-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="http://jevonsc1.github.io/images/ow_baolei.jpeg" alt=""><br><a id="more"></a></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>为了了解面对对象的特性，没有比用c语言这样一门语言从零开始实现一次更彻底。首先很感激生命中出现了一位臧老师这样的导师带着我们折腾。</p>
+<h2 id="面向对象特性"><a href="#面向对象特性" class="headerlink" title="面向对象特性"></a>面向对象特性</h2><p>用过面向对象语言的人都知道，面向对象的一些基本组成成分</p>
+<p>例如：</p>
+<ul>
+<li>类</li>
+<li>实例</li>
+<li>状态（属性集）<br>  性质有下：<ol>
+<li>独特性</li>
+<li>私密性</li>
+<li>可变性</li>
+</ol>
+</li>
+<li>行为（方法集）<br>  性质有下：<ol>
+<li>同一类具备同一行为</li>
+<li>查询自己的状态</li>
+<li>改变自己的状态</li>
+<li>触发其他实例的行为</li>
+</ol>
+</li>
+<li>关系<ol>
+<li>类的关系</li>
+<li>实例的关系</li>
+<li>行为的关系</li>
+</ol>
+</li>
+</ul>
+<p>归纳起来就3个重要的特性： 封装性，继承性，多态性</p>
+<p>封装性的性质：</p>
+<ul>
+<li>行为与状态结合形成一个整体</li>
+<li>隐藏细节</li>
+<li>公开接口</li>
+</ul>
+<p>继承性：</p>
+<ul>
+<li>拓展现有封装</li>
+<li>区别“基于对象”和“面向对象”</li>
+</ul>
+<p>多态性：</p>
+<ul>
+<li>相同行为子类多种实现</li>
+<li>通过父类抽象访问行为</li>
+<li>不同子类给以不同响应</li>
+</ul>
+<h2 id="初步实现"><a href="#初步实现" class="headerlink" title=" 初步实现"></a> 初步实现</h2><h4 id="结构体表示类"><a href="#结构体表示类" class="headerlink" title="结构体表示类"></a>结构体表示类</h4><ul>
+<li>结构体定义－&gt;结构体变量</li>
+<li>类－&gt;实例</li>
+<li>抽象－&gt;实体</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">typedef struct ClassA &#123;</span><br><span class="line">    int property1;</span><br><span class="line">    float property2;</span><br><span class="line">&#125; ClassA;</span><br><span class="line"></span><br><span class="line">ClassA instanceA = &#123;</span><br><span class="line">    .property1 = 1,</span><br><span class="line">    .property2 = 1.5f</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>除了用结构体字段来表示状态还可以用kv存储，连续地址偏移量的方式，另外用结构体存状态不能在运行时自省个，也不利于隐藏细节</p>
+<h4 id="函数聚合表示行为"><a href="#函数聚合表示行为" class="headerlink" title="函数聚合表示行为"></a>函数聚合表示行为</h4><p>方法有3个要素，执行者，方法名，参数，不同的面向对象语言有自己存放方法的方法，c++语言就是散列存放的，javascript是存放在实例当中，oc、ruby存放在类当中</p>
+<p>散列存放方式</p>
+<ul>
+<li>实现简单</li>
+<li>理解简单</li>
+<li>无法实现封装</li>
+<li>无法重载<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">void police_arrest(Police_Officer *police, User *somebody);</span><br><span class="line">void police_call_partner(Police_Officer *police, Police_Officer *another);</span><br><span class="line">int police_level(Police_Officer *police);</span><br><span class="line"></span><br><span class="line">void CGContextBeginPath(CGContextRef cg_nullable c);</span><br><span class="line">void CGContextMoveToPoint(CGContextRef cg_nullable c,</span><br><span class="line">    CGFloat x, CGFloat y);</span><br><span class="line">void CGContextAddRects(CGContextRef cg_nullable c,</span><br><span class="line">    const CGRect * __nullable rects, size_t count);</span><br><span class="line">CGPoint CGContextConvertPointToUserSpace(CGContextRef cg_nullable c,</span><br><span class="line">    CGPoint point);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>存放于实例的方式</p>
+<ul>
+<li>实例容易替换方法</li>
+<li>理解简单</li>
+<li>查询方法简单</li>
+<li>父类方法不易找到</li>
+<li>对象占用过多内存</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">typedef void Arrest_Type(struct Police_Man *self,</span><br><span class="line">                         struct Thief *thief);</span><br><span class="line"></span><br><span class="line">typedef void Call_Partner_Type(struct Police_Man *self,</span><br><span class="line">                               struct Police_Man *partner);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">typedef struct Police_Man &#123;</span><br><span class="line">    Arrest_Type *arrest;</span><br><span class="line">    Call_Partner_Type *call_partner;</span><br><span class="line">    int police_id;</span><br><span class="line">&#125; Police_Man;</span><br></pre></td></tr></table></figure>
+<p>存放于类</p>
+<ul>
+<li>内存更节约</li>
+<li>便于实现继承链</li>
+<li>对象和类的模型更复杂<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">typedef void Arrest_Type(struct Police_Man *self,</span><br><span class="line">                         struct Thief *thief);</span><br><span class="line"></span><br><span class="line">typedef void Call_Partner_Type(struct Police_Man *self,</span><br><span class="line">                               struct Police_Man *partner);</span><br><span class="line"></span><br><span class="line">typedef struct Police_Man_MTable &#123;</span><br><span class="line">    Arrest_Type *arrest;</span><br><span class="line">    Call_Partner_Type *call_partner;</span><br><span class="line">&#125; Police_Man_MTable;                     </span><br><span class="line"></span><br><span class="line">typedef struct Police_Man &#123;</span><br><span class="line">    Police_Man_MTable *mtable;</span><br><span class="line">    int police_id;</span><br><span class="line">&#125; Police_Man;</span><br><span class="line"></span><br><span class="line">Police_Man_MTable global_police_man_mtable;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="采用方案"><a href="#采用方案" class="headerlink" title="采用方案"></a>采用方案</h2><ul>
+<li>属性：结构体表示字段</li>
+<li>类和实例：结构体定义、结构体变量</li>
+<li>方法存放：存放在类上</li>
+</ul>
+<h4 id="实现封装性"><a href="#实现封装性" class="headerlink" title="实现封装性"></a>实现封装性</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">typedef void Arrest_Type(struct Police_Man *self,</span><br><span class="line">                         struct Thief *thief);</span><br><span class="line"></span><br><span class="line">typedef void Call_Partner_Type(struct Police_Man *self,</span><br><span class="line">                               struct Police_Man *partner);</span><br><span class="line"></span><br><span class="line">typedef struct Police_Man_MTable &#123;</span><br><span class="line">    Arrest_Type *arrest;</span><br><span class="line">    Call_Partner_Type *call_partner;</span><br><span class="line">&#125; Police_Man_MTable;</span><br><span class="line"></span><br><span class="line">typedef struct Police_Man &#123;</span><br><span class="line">    Police_Man_MTable *mtable;</span><br><span class="line">    int police_id;</span><br><span class="line">&#125; Police_Man;</span><br><span class="line"></span><br><span class="line">Police_Man_MTable global_police_man_mtable;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">police_man-&gt;mtable-&gt;arrest(police_man, thief);</span><br><span class="line">int id = police_man-&gt;police_id;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">void arrest_imp(struct Police_Man *self,</span><br><span class="line">                struct Thief *thief) &#123;</span><br><span class="line">    printf(&quot;arrest a thief!\n&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void call_parnter_imp(struct Police_Man *self,</span><br><span class="line">                      struct Police_Man *partner) &#123;</span><br><span class="line">    printf(&quot;call another police man!\n&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Police_Man_MTable global_police_man_mtable = &#123;</span><br><span class="line">    .arrest = arrest_imp,</span><br><span class="line">    .call_partner = call_parnter_imp</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Police_Man *new_police_man() &#123;</span><br><span class="line">    Police_Man *new_obj = (Police_Man *)malloc(sizeof(Police_Man));</span><br><span class="line">    new_obj-&gt;mtable = &amp;global_police_man_mtable;</span><br><span class="line">    static int auto_increase_id = 0;</span><br><span class="line">    new_obj-&gt;police_id = ++auto_increase_id;</span><br><span class="line">    return new_obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>隐藏细节<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">typedef struct Thief &#123;</span><br><span class="line">    struct Thief_MTable *mtable;</span><br><span class="line">    float money;</span><br><span class="line">&#125; Thief;</span><br></pre></td></tr></table></figure><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">typedef struct Thief_Private_Data &#123;</span><br><span class="line">    int tools_count;</span><br><span class="line">&#125; Thief_Private_Data;</span><br><span class="line"></span><br><span class="line">typedef struct Thief_Private &#123;</span><br><span class="line">    struct Thief_MTable *mtable;</span><br><span class="line">    float money;</span><br><span class="line">    Thief_Private_Data *private;</span><br><span class="line">&#125; Thief_Private;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">typedef void Dealloc_Type(struct Thief *self);</span><br><span class="line"></span><br><span class="line">typedef int Tools_Count_Type(struct Thief *self);</span><br><span class="line"></span><br><span class="line">typedef struct Thief_MTable &#123;</span><br><span class="line">    Dealloc_Type *dealloc;</span><br><span class="line">    Tools_Count_Type *tools_count;</span><br><span class="line">&#125; Thief_MTable;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">void thief_dealloc(struct Thief_Private *self) &#123;</span><br><span class="line">    free(self-&gt;private);</span><br><span class="line">    free(self);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int thief_tools_count(struct Thief_Private *self) &#123;</span><br><span class="line">    return self-&gt;private-&gt;tools_count;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Thief_MTable global_thief_mtable = &#123;</span><br><span class="line">    .dealloc = (Dealloc_Type *)thief_dealloc,</span><br><span class="line">    .tools_count = (Tools_Count_Type *)thief_tools_count</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Thief *new_thief() &#123;</span><br><span class="line">    Thief_Private *new_obj = (Thief_Private *)malloc(sizeof(Thief_Private));</span><br><span class="line">    new_obj-&gt;mtable = &amp;global_thief_mtable;</span><br><span class="line">    new_obj-&gt;private = (Thief_Private_Data *)malloc(sizeof(Thief_Private_Data));</span><br><span class="line">    return (Thief *)new_obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="实现继承性"><a href="#实现继承性" class="headerlink" title="实现继承性"></a>实现继承性</h4><p>car是父类，扩写一个子类taxi<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">struct Car;</span><br><span class="line"></span><br><span class="line">typedef void Car_Dealloc_Type(struct Car *self);</span><br><span class="line"></span><br><span class="line">typedef void Drive_Type(struct Car *self, int meter);</span><br><span class="line"></span><br><span class="line">typedef int DriveTimes_Type(struct Car *self);</span><br><span class="line"></span><br><span class="line">typedef const char *Color_Type(struct Car *self);</span><br><span class="line"></span><br><span class="line">typedef struct Car_MTable &#123;</span><br><span class="line">    Car_Dealloc_Type *dealloc;</span><br><span class="line">    Drive_Type *drive;</span><br><span class="line">    DriveTimes_Type *drive_times;</span><br><span class="line">    Color_Type *color;</span><br><span class="line">&#125; Car_MTable;</span><br><span class="line"></span><br><span class="line">Car_MTable global_car_mtable;</span><br><span class="line"></span><br><span class="line">typedef struct Car &#123;</span><br><span class="line">    Car_MTable *mtable;</span><br><span class="line">    int total_meters;</span><br><span class="line">    void *private;</span><br><span class="line">&#125; Car;</span><br></pre></td></tr></table></figure><br>属性扩写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">typedef struct Car &#123;</span><br><span class="line">    Car_MTable *mtable;</span><br><span class="line">    int total_meters;</span><br><span class="line">    void *private;</span><br><span class="line">&#125; Car;</span><br><span class="line"></span><br><span class="line"> typedef struct Taxi &#123;</span><br><span class="line">    Car super;</span><br><span class="line">    float change;</span><br><span class="line">    void *private;</span><br><span class="line">&#125; Taxi;</span><br><span class="line"></span><br><span class="line">Taxi *taxi = (Taxi *)malloc(sizeof(Taxi));</span><br><span class="line">Car *car = (Car *)taxi;</span><br></pre></td></tr></table></figure><br>方法扩写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">typedef struct Car_MTable &#123;</span><br><span class="line">    Car_Dealloc_Type *dealloc;</span><br><span class="line">    Drive_Type *drive;</span><br><span class="line">    DriveTimes_Type *drive_times;</span><br><span class="line">    Color_Type *color;</span><br><span class="line">&#125; Car_MTable;</span><br><span class="line"></span><br><span class="line">Car_MTable global_car_mtable;</span><br><span class="line"></span><br><span class="line">typedef struct Taxi_MTable &#123;</span><br><span class="line">    Car_MTable super;</span><br><span class="line">    Taxi_Init_Type *init;</span><br><span class="line">    Available_Type *available;</span><br><span class="line">    Pick_Up_Type *pick_up;</span><br><span class="line">    Set_Off_Type *set_off;</span><br><span class="line">&#125; Taxi_MTable;</span><br><span class="line"></span><br><span class="line">Taxi_MTable global_taxi_mtable;</span><br></pre></td></tr></table></figure></p>
+<h4 id="实现多态性"><a href="#实现多态性" class="headerlink" title="实现多态性"></a>实现多态性</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">void taxi_drive(Taxi *self, int meters) &#123;</span><br><span class="line">    global_car_mtable.drive((Car *)self, meters);</span><br><span class="line">    self-&gt;change += meters;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Taxi *new_taxi() &#123;</span><br><span class="line">    Taxi *new_obj = (Taxi *)malloc(sizeof(Taxi));</span><br><span class="line">    ((Car *)new_obj)-&gt;mtable = (Car_MTable *)&amp;global_taxi_mtable;</span><br><span class="line">    global_taxi_mtable.super.drive = (Drive_Type *)taxi_drive;</span><br><span class="line">    return new_obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">void test3() &#123;</span><br><span class="line">    Taxi *taxi = new_taxi();</span><br><span class="line">    Car *car = new_car();</span><br><span class="line">    ((Car *)taxi)-&gt;mtable-&gt;drive((Car *)taxi, 15);</span><br><span class="line">    car-&gt;mtable-&gt;drive(car, 17);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2017/02/17/%E5%AE%8F%E7%9A%84%E9%BB%91%E9%AD%94%E6%B3%95/" rel="next" title="宏的黑魔法">
+                  <i class="fa fa-chevron-left"></i> 宏的黑魔法
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2017/03/29/knowledge/" rel="prev" title="knowledge">
+                  knowledge <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象特性"><span class="nav-number">2.</span> <span class="nav-text">面向对象特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初步实现"><span class="nav-number">3.</span> <span class="nav-text"> 初步实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#结构体表示类"><span class="nav-number">3.0.1.</span> <span class="nav-text">结构体表示类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数聚合表示行为"><span class="nav-number">3.0.2.</span> <span class="nav-text">函数聚合表示行为</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#采用方案"><span class="nav-number">4.</span> <span class="nav-text">采用方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实现封装性"><span class="nav-number">4.0.1.</span> <span class="nav-text">实现封装性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现继承性"><span class="nav-number">4.0.2.</span> <span class="nav-text">实现继承性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现多态性"><span class="nav-number">4.0.3.</span> <span class="nav-text">实现多态性</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Jevons</p>
+  <div class="site-description" itemprop="description">Welcome</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jevons</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="越学越执着" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="(持续更新中)">
+<meta name="keywords" content="Arduino">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Arduino Tools">
+<meta property="og:url" content="http:&#x2F;&#x2F;jevonsc1.github.io&#x2F;2016&#x2F;05&#x2F;16&#x2F;Arduino-Tools&#x2F;index.html">
+<meta property="og:site_name" content="越学越执着">
+<meta property="og:description" content="(持续更新中)">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http:&#x2F;&#x2F;jevonsc1.github.io&#x2F;images&#x2F;arduinotools.png">
+<meta property="og:updated_time" content="2019-11-07T13:16:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;jevonsc1.github.io&#x2F;images&#x2F;arduinotools.png">
+
+<link rel="canonical" href="http://jevonsc1.github.io/2016/05/16/Arduino-Tools/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Arduino Tools | 越学越执着</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">越学越执着</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">//Fly The Best</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://jevonsc1.github.io/2016/05/16/Arduino-Tools/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jevons">
+      <meta itemprop="description" content="Welcome">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="越学越执着">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Arduino Tools
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-05-16 10:12:56" itemprop="dateCreated datePublished" datetime="2016-05-16T10:12:56+08:00">2016-05-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-07 21:16:16" itemprop="dateModified" datetime="2019-11-07T21:16:16+08:00">2019-11-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="/images/arduinotools.png" alt="Aruduino Tools"></p>
+<p>(持续更新中)<br><a id="more"></a></p>
+<h2 id="1-Soldering-iron-电烙铁"><a href="#1-Soldering-iron-电烙铁" class="headerlink" title="1. Soldering iron(电烙铁)"></a>1. Soldering iron(电烙铁)</h2><blockquote>
+<p>Middle-of-the-line is best here. Cheap soldering irons die fast, but a mid-range iron like the Weller WLC-100 works great for small electronic work. Avoid the Cold Solder irons. They solder by creating a spark, and that spark<br>can damage static-sensitive parts like microcontrollers. </p>
+</blockquote>
+<p>电线不长不短的电烙铁是最好用的。对于太便宜的电烙铁会很容易坏，而一些中等价格的电烙铁，例如Weller WLC-100 就很适合做小电工。一定要避免冷焊（即不用焊料），不然会产生损害元件的火花。</p>
+<p><br/><br/></p>
+<h2 id="2-Solder（焊料）"><a href="#2-Solder（焊料）" class="headerlink" title="2. Solder（焊料）"></a>2. Solder（焊料）</h2><blockquote>
+<p>21-23 AWG solder is best. Get lead-free(无铅) solder if you can; it’s healthier for you.</p>
+</blockquote>
+<p><br/><br/></p>
+<h2 id="3-Desoldering-pump（吸锡器）"><a href="#3-Desoldering-pump（吸锡器）" class="headerlink" title="3. Desoldering pump（吸锡器）"></a>3. Desoldering pump（吸锡器）</h2><blockquote>
+<p>This helps when you mess up while soldering. </p>
+</blockquote>
+<p><br/><br/></p>
+<h2 id="4-Wire-stripper-Diagonal-cutter-Needle-nose-pliers-削线器，对角切割器，尖咀钳）"><a href="#4-Wire-stripper-Diagonal-cutter-Needle-nose-pliers-削线器，对角切割器，尖咀钳）" class="headerlink" title="4. Wire stripper, Diagonal cutter, Needle-nose pliers(削线器，对角切割器，尖咀钳）"></a>4. Wire stripper, Diagonal cutter, Needle-nose pliers(削线器，对角切割器，尖咀钳）</h2><blockquote>
+<p>Avoid the 3-in-1 versions<br>of these tools. They’ll only make you grumpy. These three tools are essential for working with wire, and you don’t need expensive ones to have good ones.</p>
+</blockquote>
+<p>千万不要买3合一的类型，因为这只会让你感到脾气暴躁，这些工具能很好应付线材工作，你不需要买很贵的，够用就行。</p>
+<p><br/><br/></p>
+<h2 id="5-Mini-screwdriver-小型螺丝刀"><a href="#5-Mini-screwdriver-小型螺丝刀" class="headerlink" title="5. Mini-screwdriver(小型螺丝刀)"></a>5. Mini-screwdriver(小型螺丝刀)</h2><blockquote>
+<p>Get one with both Phillips and slotted heads. You’ll use it all the time.</p>
+</blockquote>
+<p> 十字一字螺丝刀各一个，你会常常用到它们的。</p>
+<p> <br/><br/></p>
+<h2 id="6-Safety-goggles-保护眼罩"><a href="#6-Safety-goggles-保护眼罩" class="headerlink" title="6. Safety goggles(保护眼罩)"></a>6. Safety goggles(保护眼罩)</h2><blockquote>
+<p>Always a good idea when soldering, drilling, or other tasks.</p>
+</blockquote>
+<p>  焊接，钻东西是最好戴上。</p>
+<p> <br/><br/> </p>
+<h2 id="7-Helping-hands-支架"><a href="#7-Helping-hands-支架" class="headerlink" title="7. Helping hands(支架)"></a>7. Helping hands(支架)</h2><blockquote>
+<p>These make soldering much easier. </p>
+</blockquote>
+<p>可以让焊接更简单</p>
+<p> <br/><br/></p>
+<h2 id="8-Multimeter-万用表"><a href="#8-Multimeter-万用表" class="headerlink" title="8. Multimeter(万用表)"></a>8. Multimeter(万用表)</h2><blockquote>
+<p>You don’t need an expensive one. As long as it measures voltage, resistance, amperage, and continuity, it’ll do the job. </p>
+</blockquote>
+<p> 不需要很贵，能量电压，电阻，电流就行</p>
+<p><br/><br/></p>
+<h2 id="9-Oscilloscope-示波器"><a href="#9-Oscilloscope-示波器" class="headerlink" title="9. Oscilloscope(示波器)"></a>9. Oscilloscope(示波器)</h2><blockquote>
+<p>Professional oscilloscopes are expensive, but the DSO Nano is<br>only about $100 and a valuable aid when working on electronics. </p>
+</blockquote>
+<p>专业的示波器会很贵，但DSO Nano这款只需100美元。</p>
+<p><br/><br/></p>
+<h2 id="10-9–12V-DC-power-supply"><a href="#10-9–12V-DC-power-supply" class="headerlink" title="10. 9–12V DC power supply"></a>10. 9–12V DC power supply</h2><blockquote>
+<p>You’ll use this all the time, and you’ve probably got a spare from some dead electronic device. Make sure you know the polarity of the plug so you don’t reverse polarity on<br>a component and blow it up! Most of<br>the devices shown in this book have a DC power jack that accepts a 2.1mm inner diameter/5.5mm outer diameter plug, so look for an adapter with the same dimensions.</p>
+</blockquote>
+<p><br/><br/></p>
+<h2 id="11-Power-connector-2-1mm-inside-diameter-5-5mm-outside-diameter-电源连接线，内径2-1mm-外径5-5mm"><a href="#11-Power-connector-2-1mm-inside-diameter-5-5mm-outside-diameter-电源连接线，内径2-1mm-外径5-5mm" class="headerlink" title="11. Power connector, 2.1mm inside diameter/5.5mm outside diameter(电源连接线，内径2.1mm,外径5.5mm)"></a>11. Power connector, 2.1mm inside diameter/5.5mm outside diameter(电源连接线，内径2.1mm,外径5.5mm)</h2><blockquote>
+<p>You’ll need this to connect your microcon- troller module or breadboard to a DC power supply. This size connector is the most common for the power supplies that will work with the circuits you’ll be building here.</p>
+</blockquote>
+<p> 你将会需要这个物件去将微控制器模块或面包板和电源连接起来。这是这里最常用的尺寸的连接器。</p>
+<p><br/><br/></p>
+<h2 id="12-9V-Battery-snap-adapter-and-9V-battery"><a href="#12-9V-Battery-snap-adapter-and-9V-battery" class="headerlink" title="12. 9V Battery snap adapter and 9V battery"></a>12. 9V Battery snap adapter and 9V battery</h2><blockquote>
+<p>When you want to run a project off battery power, these adapters are a handy way to do it. </p>
+</blockquote>
+<p><br/><br/></p>
+<h2 id="13-USB-cables"><a href="#13-USB-cables" class="headerlink" title="13. USB cables"></a>13. USB cables</h2><p> You’ll need both USB A-to-B (the most common USB cables) and USB A-to-mini-B (the kind that’s common with digital cameras) for the projects in this book.</p>
+<p><br/><br/> </p>
+<h2 id="14-Alligator-clip-test-leads-鳄鱼夹测试引线"><a href="#14-Alligator-clip-test-leads-鳄鱼夹测试引线" class="headerlink" title="14. Alligator clip test leads(鳄鱼夹测试引线)"></a>14. Alligator clip test leads(鳄鱼夹测试引线)</h2><blockquote>
+<p>It’s often hard to juggle the five or six things you have to hold when metering a circuit. Clip leads make this much easier. </p>
+</blockquote>
+<p><br/><br/></p>
+<h2 id="15-Serial-to-USB-converter-串口USB转换器"><a href="#15-Serial-to-USB-converter-串口USB转换器" class="headerlink" title="15. Serial-to-USB converter(串口USB转换器)"></a>15. Serial-to-USB converter(串口USB转换器)</h2><blockquote>
+<p>This converter lets you speak TTL serial from a USB port. Breadboard serial-to-USB modules, like the FT232 modules shown here, are cheaper than the consumer models and easier to use in the projects in this book.</p>
+</blockquote>
+<p><br/><br/></p>
+<h2 id="16-Microcontroller-module-微控制器模块"><a href="#16-Microcontroller-module-微控制器模块" class="headerlink" title="16. Microcontroller module(微控制器模块)"></a>16. Microcontroller module(微控制器模块)</h2><blockquote>
+<p>The microcontroller shown here is an Arduino Uno.  See <a href="http://arduino.cc/en/" target="_blank" rel="noopener">http://arduino.cc/en/</a> Main/Buy for details about your region.</p>
+</blockquote>
+<p>这里用到的微控制器模块是Arduino Uno，更多可以上官网自己看 <a href="http://arduino.cc/en/Main/Buy" target="_blank" rel="noopener">http://arduino.cc/en/Main/Buy</a>  </p>
+<p><br/><br/></p>
+<h2 id="17-Voltage-regulator-稳压器"><a href="#17-Voltage-regulator-稳压器" class="headerlink" title="17. Voltage regulator(稳压器)"></a>17. Voltage regulator(稳压器)</h2><blockquote>
+<p>Voltage regulators take a variable input voltage and output a constant (lower) voltage. The two most common you’ll need for these projects are 5V and 3.3V. Be careful when using a regulator that you’ve never used before. Check the data sheet to make sure you have the pin connections correct.</p>
+</blockquote>
+<p><br/><br/></p>
+<h2 id="18-TIP120-Transistor-TIP120-三极管／晶体管"><a href="#18-TIP120-Transistor-TIP120-三极管／晶体管" class="headerlink" title="18. TIP120 Transistor(TIP120 三极管／晶体管)"></a>18. TIP120 Transistor(TIP120 三极管／晶体管)</h2><blockquote>
+<p>Transistors act as digital switches, allowing you to control a circuit with high current or voltage from one with lower current and voltage. There are many types of transistors, the TIP120 is one used in a few projects in this book. Note that the TIP120 looks just like the voltage regulator next to it. Sometimes electronic components with different functions come in the same physical packages, so you need to check the part number written on the part.</p>
+</blockquote>
+<p><br/><br/></p>
+<h2 id="19-Prototyping-shields-扩展板"><a href="#19-Prototyping-shields-扩展板" class="headerlink" title="19. Prototyping shields(扩展板)"></a>19. Prototyping shields(扩展板)</h2><blockquote>
+<p>These are add-on boards for the Arduino microcontroller module that have a bare grid of holes to which you can solder. You can build your own circuits on them by soldering, or you can use a tiny breadboard (also shown) to test circuits quickly. These are handy for projects where you need to prototype quickly, as well as a compact form to the electronics. </p>
+</blockquote>
+<h2 id="20-Solderless-breadboard-免焊面包板"><a href="#20-Solderless-breadboard-免焊面包板" class="headerlink" title="20. Solderless breadboard(免焊面包板)"></a>20. Solderless breadboard(免焊面包板)</h2><blockquote>
+<p>Having a few around can be handy. I like the ones with two long rows on either side so that you can run power and ground on both sides. </p>
+</blockquote>
+<p><br/><br/></p>
+<h2 id="21-Spare-LEDs-for-tracing-signals-用于跟踪信号的备用发光二极管"><a href="#21-Spare-LEDs-for-tracing-signals-用于跟踪信号的备用发光二极管" class="headerlink" title="21. Spare LEDs for tracing signals(用于跟踪信号的备用发光二极管)"></a>21. Spare LEDs for tracing signals(用于跟踪信号的备用发光二极管)</h2><blockquote>
+<p>LEDs are to the hardware developer what print statements are to the software developer. They let you see quickly whether there’s voltage between two points, or whether a signal is going through. Keep spares on hand. </p>
+</blockquote>
+<p><br/><br/></p>
+<h2 id="22-Resistors-电阻"><a href="#22-Resistors-电阻" class="headerlink" title="22. Resistors(电阻)"></a>22. Resistors(电阻)</h2><blockquote>
+<p>You’ll need resistors of various values for your projects.</p>
+</blockquote>
+<p><br/><br/></p>
+<h2 id="23-Header-pins-针脚"><a href="#23-Header-pins-针脚" class="headerlink" title="23. Header pins(针脚)"></a>23. Header pins(针脚)</h2><blockquote>
+<p>You’ll use these all the time. It’s handy to have female ones around as well. </p>
+</blockquote>
+<p><br/><br/></p>
+<h2 id="24-Analog-sensors-variable-resistors-可变电阻"><a href="#24-Analog-sensors-variable-resistors-可变电阻" class="headerlink" title="24. Analog sensors (variable resistors)(可变电阻)"></a>24. Analog sensors (variable resistors)(可变电阻)</h2><blockquote>
+<p>There are countless varieties of variable resistors to measure all kinds of physical properties. They’re the simplest of analog sensors, and they’re very easy to build into test circuits. Flex sensors and force-sensing resistors are handy for testing a circuit or a program.</p>
+</blockquote>
+<p> <br/><br/></p>
+<h2 id="25-Pushbuttons-按钮"><a href="#25-Pushbuttons-按钮" class="headerlink" title="25. Pushbuttons(按钮)"></a>25. Pushbuttons(按钮)</h2><blockquote>
+<p>There are two types you’ll find handy: the PCB-mount type, like the ones you find on Wiring and Arduino boards, used here mostly as reset buttons for breadboard projects; and panel-mount types used for interface controls for end users. But you can use just about any type you want.</p>
+</blockquote>
+<p><br/><br/></p>
+<h2 id="26-Potentiometers（电位器）"><a href="#26-Potentiometers（电位器）" class="headerlink" title="26. Potentiometers（电位器）"></a>26. Potentiometers（电位器）</h2><blockquote>
+<p>You’ll need potentiom- eters to let people adjust settings in your project.</p>
+</blockquote>
+<p><br/><br/></p>
+<h2 id="27-Ethernet-cables-网线"><a href="#27-Ethernet-cables-网线" class="headerlink" title="27. Ethernet cables(网线)"></a>27. Ethernet cables(网线)</h2><blockquote>
+<p>A couple of these will come in handy.</p>
+</blockquote>
+<p><br/><br/></p>
+<h2 id="28-Black-red-blue-yellow-wire-各色电线"><a href="#28-Black-red-blue-yellow-wire-各色电线" class="headerlink" title="28. Black, red, blue, yellow wire(各色电线)"></a>28. Black, red, blue, yellow wire(各色电线)</h2><blockquote>
+<p>22 AWG solid-core hook-up wire is best for making solderless breadboard connec- tions. Get at least three colors, and always use red for voltage and black for ground. A little organization of your wires can go a long way.</p>
+</blockquote>
+<p><br/><br/></p>
+<h2 id="29-Capacitors-电容"><a href="#29-Capacitors-电容" class="headerlink" title="29 Capacitors(电容)"></a>29 Capacitors(电容)</h2><blockquote>
+<p>You’ll need capacitors of various values for your projects.</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Arduino/" rel="tag"># Arduino</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2016/05/13/Cranberry%20Cookies/" rel="next" title="曲奇配方">
+                  <i class="fa fa-chevron-left"></i> 曲奇配方
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2016/05/17/iOS%E7%9A%84%E5%A0%86%E5%92%8C%E6%A0%88/" rel="prev" title="iOS的堆和栈">
+                  iOS的堆和栈 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Soldering-iron-电烙铁"><span class="nav-number">1.</span> <span class="nav-text">1. Soldering iron(电烙铁)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Solder（焊料）"><span class="nav-number">2.</span> <span class="nav-text">2. Solder（焊料）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Desoldering-pump（吸锡器）"><span class="nav-number">3.</span> <span class="nav-text">3. Desoldering pump（吸锡器）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Wire-stripper-Diagonal-cutter-Needle-nose-pliers-削线器，对角切割器，尖咀钳）"><span class="nav-number">4.</span> <span class="nav-text">4. Wire stripper, Diagonal cutter, Needle-nose pliers(削线器，对角切割器，尖咀钳）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Mini-screwdriver-小型螺丝刀"><span class="nav-number">5.</span> <span class="nav-text">5. Mini-screwdriver(小型螺丝刀)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Safety-goggles-保护眼罩"><span class="nav-number">6.</span> <span class="nav-text">6. Safety goggles(保护眼罩)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Helping-hands-支架"><span class="nav-number">7.</span> <span class="nav-text">7. Helping hands(支架)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-Multimeter-万用表"><span class="nav-number">8.</span> <span class="nav-text">8. Multimeter(万用表)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-Oscilloscope-示波器"><span class="nav-number">9.</span> <span class="nav-text">9. Oscilloscope(示波器)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-9–12V-DC-power-supply"><span class="nav-number">10.</span> <span class="nav-text">10. 9–12V DC power supply</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-Power-connector-2-1mm-inside-diameter-5-5mm-outside-diameter-电源连接线，内径2-1mm-外径5-5mm"><span class="nav-number">11.</span> <span class="nav-text">11. Power connector, 2.1mm inside diameter/5.5mm outside diameter(电源连接线，内径2.1mm,外径5.5mm)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-9V-Battery-snap-adapter-and-9V-battery"><span class="nav-number">12.</span> <span class="nav-text">12. 9V Battery snap adapter and 9V battery</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-USB-cables"><span class="nav-number">13.</span> <span class="nav-text">13. USB cables</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-Alligator-clip-test-leads-鳄鱼夹测试引线"><span class="nav-number">14.</span> <span class="nav-text">14. Alligator clip test leads(鳄鱼夹测试引线)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-Serial-to-USB-converter-串口USB转换器"><span class="nav-number">15.</span> <span class="nav-text">15. Serial-to-USB converter(串口USB转换器)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16-Microcontroller-module-微控制器模块"><span class="nav-number">16.</span> <span class="nav-text">16. Microcontroller module(微控制器模块)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17-Voltage-regulator-稳压器"><span class="nav-number">17.</span> <span class="nav-text">17. Voltage regulator(稳压器)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#18-TIP120-Transistor-TIP120-三极管／晶体管"><span class="nav-number">18.</span> <span class="nav-text">18. TIP120 Transistor(TIP120 三极管／晶体管)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#19-Prototyping-shields-扩展板"><span class="nav-number">19.</span> <span class="nav-text">19. Prototyping shields(扩展板)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20-Solderless-breadboard-免焊面包板"><span class="nav-number">20.</span> <span class="nav-text">20. Solderless breadboard(免焊面包板)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#21-Spare-LEDs-for-tracing-signals-用于跟踪信号的备用发光二极管"><span class="nav-number">21.</span> <span class="nav-text">21. Spare LEDs for tracing signals(用于跟踪信号的备用发光二极管)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#22-Resistors-电阻"><span class="nav-number">22.</span> <span class="nav-text">22. Resistors(电阻)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#23-Header-pins-针脚"><span class="nav-number">23.</span> <span class="nav-text">23. Header pins(针脚)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#24-Analog-sensors-variable-resistors-可变电阻"><span class="nav-number">24.</span> <span class="nav-text">24. Analog sensors (variable resistors)(可变电阻)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#25-Pushbuttons-按钮"><span class="nav-number">25.</span> <span class="nav-text">25. Pushbuttons(按钮)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#26-Potentiometers（电位器）"><span class="nav-number">26.</span> <span class="nav-text">26. Potentiometers（电位器）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#27-Ethernet-cables-网线"><span class="nav-number">27.</span> <span class="nav-text">27. Ethernet cables(网线)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#28-Black-red-blue-yellow-wire-各色电线"><span class="nav-number">28.</span> <span class="nav-text">28. Black, red, blue, yellow wire(各色电线)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#29-Capacitors-电容"><span class="nav-number">29.</span> <span class="nav-text">29 Capacitors(电容)</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Jevons</p>
+  <div class="site-description" itemprop="description">Welcome</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jevons</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
